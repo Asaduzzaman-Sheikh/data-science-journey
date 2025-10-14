@@ -13,5 +13,4 @@ Practice programs and mini-project focused on defining and using functions in Py
 - Modular structure using separate functions
 - Demonstrates code reusability and organization
 
-## 📈 Example Output
-![alt text]({4E40B757-74AE-4640-ABA0-A0DAEFC35A4E}.png)
+
