@@ -1,0 +1,182 @@
+[
+    {
+        "label": "student",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "student",
+        "description": "student",
+        "detail": "student",
+        "documentation": {}
+    },
+    {
+        "label": "department",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "department",
+        "description": "department",
+        "detail": "department",
+        "documentation": {}
+    },
+    {
+        "label": "Department",
+        "kind": 6,
+        "importPath": "department",
+        "description": "department",
+        "peekOfCode": "class Department:\n    def __init__(self, name):\n        self.name = name\n        self.students = []\n    def add_student(self, student):\n        self.students.append(student)\n        print(f\"✅ Student {student.name} added to {self.name} department.\")\n        print()\n    def view_all_students(self):\n        if not self.students:",
+        "detail": "department",
+        "documentation": {}
+    },
+    {
+        "label": "Student",
+        "kind": 6,
+        "importPath": "student",
+        "description": "student",
+        "peekOfCode": "class Student:\n    # CLASS VARIABLE\n    total_students = 0\n    def __init__(self, name, id, department, cgpa):\n        self.name = name\n        self.id = id\n        self.department = department\n        self.cgpa = cgpa\n        Student.total_students += 1\n        # print(\"✅ Student object created successfully.\")",
+        "detail": "student",
+        "documentation": {}
+    },
+    {
+        "label": "University",
+        "kind": 6,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "class University:\n    def __init__(self, name):\n        self.name = name\n        self.departments = []\n    def add_department(self, department):\n        self.departments.append(department)\n        department.university = self\n        print(f\"✅ Department {department.name} added to {self.name} University.\")\n        print()\n    def search_student_by_id(self, student_id):",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "my_university",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "my_university = University(\"Northern University Bangladesh\")\n# ADD INITIAL DEPARTMENTS\ncse_department = department.Department(\"Computer Science & Engineering\")\nmy_university.add_department(cse_department)\n# ADD ANOTHER DEPARTMENT\nmath_department = department.Department(\"Mathematics\")\nmy_university.add_department(math_department)\n# ADD ANOTHER DEPARTMENTS\neee_department = department.Department(\"Electrical & Electronics Engineering\")\nmy_university.add_department(eee_department)",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "cse_department",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "cse_department = department.Department(\"Computer Science & Engineering\")\nmy_university.add_department(cse_department)\n# ADD ANOTHER DEPARTMENT\nmath_department = department.Department(\"Mathematics\")\nmy_university.add_department(math_department)\n# ADD ANOTHER DEPARTMENTS\neee_department = department.Department(\"Electrical & Electronics Engineering\")\nmy_university.add_department(eee_department)\n# ADD STUDENTS TO CSE DEPARTMENT\nstudent1 = department.student.Student(\"Alice\", \"CSE123\", \"Computer Science & Engineering\", 3.8)",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "math_department",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "math_department = department.Department(\"Mathematics\")\nmy_university.add_department(math_department)\n# ADD ANOTHER DEPARTMENTS\neee_department = department.Department(\"Electrical & Electronics Engineering\")\nmy_university.add_department(eee_department)\n# ADD STUDENTS TO CSE DEPARTMENT\nstudent1 = department.student.Student(\"Alice\", \"CSE123\", \"Computer Science & Engineering\", 3.8)\ncse_department.add_student(student1)\nstudent2 = department.student.Student(\"Bob\", \"CSE456\", \"Computer Science & Engineering\", 3.6)\ncse_department.add_student(student2)",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "eee_department",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "eee_department = department.Department(\"Electrical & Electronics Engineering\")\nmy_university.add_department(eee_department)\n# ADD STUDENTS TO CSE DEPARTMENT\nstudent1 = department.student.Student(\"Alice\", \"CSE123\", \"Computer Science & Engineering\", 3.8)\ncse_department.add_student(student1)\nstudent2 = department.student.Student(\"Bob\", \"CSE456\", \"Computer Science & Engineering\", 3.6)\ncse_department.add_student(student2)\nstudent3 = department.student.Student(\"Clara\", \"CSE789\", \"Computer Science & Engineering\", 3.7)\ncse_department.add_student(student3)\ncse_department.view_all_students()",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "student1",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "student1 = department.student.Student(\"Alice\", \"CSE123\", \"Computer Science & Engineering\", 3.8)\ncse_department.add_student(student1)\nstudent2 = department.student.Student(\"Bob\", \"CSE456\", \"Computer Science & Engineering\", 3.6)\ncse_department.add_student(student2)\nstudent3 = department.student.Student(\"Clara\", \"CSE789\", \"Computer Science & Engineering\", 3.7)\ncse_department.add_student(student3)\ncse_department.view_all_students()\n# ADD STUDENTS TO MATH DEPARTMENT\nstudent4 = department.student.Student(\"David\", \"MTH789\", \"Mathematics\", 3.9)\nmath_department.add_student(student4)",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "student2",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "student2 = department.student.Student(\"Bob\", \"CSE456\", \"Computer Science & Engineering\", 3.6)\ncse_department.add_student(student2)\nstudent3 = department.student.Student(\"Clara\", \"CSE789\", \"Computer Science & Engineering\", 3.7)\ncse_department.add_student(student3)\ncse_department.view_all_students()\n# ADD STUDENTS TO MATH DEPARTMENT\nstudent4 = department.student.Student(\"David\", \"MTH789\", \"Mathematics\", 3.9)\nmath_department.add_student(student4)\nstudent5 = department.student.Student(\"Eva\", \"MTH456\", \"Mathematics\", 3.7)\nmath_department.add_student(student5)",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "student3",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "student3 = department.student.Student(\"Clara\", \"CSE789\", \"Computer Science & Engineering\", 3.7)\ncse_department.add_student(student3)\ncse_department.view_all_students()\n# ADD STUDENTS TO MATH DEPARTMENT\nstudent4 = department.student.Student(\"David\", \"MTH789\", \"Mathematics\", 3.9)\nmath_department.add_student(student4)\nstudent5 = department.student.Student(\"Eva\", \"MTH456\", \"Mathematics\", 3.7)\nmath_department.add_student(student5)\nstudent6 = department.student.Student(\"Frank\", \"MTH123\", \"Mathematics\", 3.5)\nmath_department.add_student(student6)",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "student4",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "student4 = department.student.Student(\"David\", \"MTH789\", \"Mathematics\", 3.9)\nmath_department.add_student(student4)\nstudent5 = department.student.Student(\"Eva\", \"MTH456\", \"Mathematics\", 3.7)\nmath_department.add_student(student5)\nstudent6 = department.student.Student(\"Frank\", \"MTH123\", \"Mathematics\", 3.5)\nmath_department.add_student(student6)\nmath_department.view_all_students()\n# ADD STUDENTS TO EEE DEPARTMENT\nstudent7 = department.student.Student(\"Charlie\", \"EEE789\", \"Electrical & Electronics Engineering\", 3.7)\neee_department.add_student(student7)",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "student5",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "student5 = department.student.Student(\"Eva\", \"MTH456\", \"Mathematics\", 3.7)\nmath_department.add_student(student5)\nstudent6 = department.student.Student(\"Frank\", \"MTH123\", \"Mathematics\", 3.5)\nmath_department.add_student(student6)\nmath_department.view_all_students()\n# ADD STUDENTS TO EEE DEPARTMENT\nstudent7 = department.student.Student(\"Charlie\", \"EEE789\", \"Electrical & Electronics Engineering\", 3.7)\neee_department.add_student(student7)\nstudent8 = department.student.Student(\"Diana\", \"EEE456\", \"Electrical & Electronics Engineering\", 3.8)\neee_department.add_student(student8)",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "student6",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "student6 = department.student.Student(\"Frank\", \"MTH123\", \"Mathematics\", 3.5)\nmath_department.add_student(student6)\nmath_department.view_all_students()\n# ADD STUDENTS TO EEE DEPARTMENT\nstudent7 = department.student.Student(\"Charlie\", \"EEE789\", \"Electrical & Electronics Engineering\", 3.7)\neee_department.add_student(student7)\nstudent8 = department.student.Student(\"Diana\", \"EEE456\", \"Electrical & Electronics Engineering\", 3.8)\neee_department.add_student(student8)\nstudent9 = department.student.Student(\"Ethan\", \"EEE111\", \"Electrical & Electronics Engineering\", 3.9)\neee_department.add_student(student9)",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "student7",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "student7 = department.student.Student(\"Charlie\", \"EEE789\", \"Electrical & Electronics Engineering\", 3.7)\neee_department.add_student(student7)\nstudent8 = department.student.Student(\"Diana\", \"EEE456\", \"Electrical & Electronics Engineering\", 3.8)\neee_department.add_student(student8)\nstudent9 = department.student.Student(\"Ethan\", \"EEE111\", \"Electrical & Electronics Engineering\", 3.9)\neee_department.add_student(student9)\neee_department.view_all_students()\n# VERIFYING ADMIN SECURITY\nadmin_password = \"admin123\"\ni = 1",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "student8",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "student8 = department.student.Student(\"Diana\", \"EEE456\", \"Electrical & Electronics Engineering\", 3.8)\neee_department.add_student(student8)\nstudent9 = department.student.Student(\"Ethan\", \"EEE111\", \"Electrical & Electronics Engineering\", 3.9)\neee_department.add_student(student9)\neee_department.view_all_students()\n# VERIFYING ADMIN SECURITY\nadmin_password = \"admin123\"\ni = 1\nwhile i <= 3:\n    password = input(\"Enter admin password to access the system: \")",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "student9",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "student9 = department.student.Student(\"Ethan\", \"EEE111\", \"Electrical & Electronics Engineering\", 3.9)\neee_department.add_student(student9)\neee_department.view_all_students()\n# VERIFYING ADMIN SECURITY\nadmin_password = \"admin123\"\ni = 1\nwhile i <= 3:\n    password = input(\"Enter admin password to access the system: \")\n    if password == admin_password:\n        print(\"✅ Access granted. Welcome, Admin!\")",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "admin_password",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "admin_password = \"admin123\"\ni = 1\nwhile i <= 3:\n    password = input(\"Enter admin password to access the system: \")\n    if password == admin_password:\n        print(\"✅ Access granted. Welcome, Admin!\")\n        print()\n        break\n    else:\n        print(\"❌ Incorrect password. Please try again.\")",
+        "detail": "universty",
+        "documentation": {}
+    },
+    {
+        "label": "i",
+        "kind": 5,
+        "importPath": "universty",
+        "description": "universty",
+        "peekOfCode": "i = 1\nwhile i <= 3:\n    password = input(\"Enter admin password to access the system: \")\n    if password == admin_password:\n        print(\"✅ Access granted. Welcome, Admin!\")\n        print()\n        break\n    else:\n        print(\"❌ Incorrect password. Please try again.\")\n        print()",
+        "detail": "universty",
+        "documentation": {}
+    }
+]
