@@ -1,0 +1,11 @@
+StudentID,FirstName,LastName,Age,Major,GPA,EnrollmentDate,IsActive
+1001,Emily,Johnson,19,Computer Science,3.8,2023-09-01,True
+1002,Michael,Brown,20,Electrical Engineering,3.5,2022-09-01,True
+1003,Sarah,Davis,21,Mathematics,3.9,2021-09-01,True
+1004,James,Wilson,19,Physics,2.8,2023-09-01,False
+1005,Jessica,Martinez,22,Psychology,3.2,2020-09-01,True
+1006,David,Anderson,20,Computer Science,3.6,2022-01-15,True
+1007,Laura,Thomas,19,Biology,3.1,2023-09-01,True
+1008,Robert,Jackson,21,Business Admin,2.5,2021-09-01,False
+1009,John,White,23,Economics,3.4,2020-09-01,True
+1010,Karen,Harris,20,Computer Science,3.7,2022-09-01,True
