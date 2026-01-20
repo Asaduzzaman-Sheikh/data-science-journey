@@ -11,8 +11,9 @@
 1. [Chapter 1: What is Data?](./01_What_is_Data.md)
 2. [Chapter 1.5: Types of Variables](./01b_Types_of_Variables.md)
 3. [Chapter 2: What is a Data Distribution?](./02_Data_Distribution.md)
-4. [Chapter 3: Visualizing Distributions](./03_Visualizing_Distributions.md) *(with Python!)*
-5. *(More chapters to come...)*
+4. [Chapter 3: Visualizing Distributions](./03_Visualizing_Distributions.md) _(with Python!)_
+5. [Chapter 4: Shapes of Distributions](./04_Shapes_of_Distributions.md)
+6. _(More chapters to come...)_
 
 ---
 
@@ -29,11 +30,12 @@
 
 ## 📝 Progress Tracker
 
-| Chapter | Topic | Status |
-|---------|-------|--------|
-| 1 | What is Data? | ✅ Complete |
-| 1.5 | Types of Variables | ✅ Complete |
-| 2 | What is a Data Distribution? | ✅ Complete |
-| 3 | Visualizing Distributions | ✅ Complete |
-| 4 | Measures of Center | ⏳ Upcoming |
-| 5 | Measures of Spread | ⏳ Upcoming |
+| Chapter | Topic                        | Status      |
+| ------- | ---------------------------- | ----------- |
+| 1       | What is Data?                | ✅ Complete |
+| 1.5     | Types of Variables           | ✅ Complete |
+| 2       | What is a Data Distribution? | ✅ Complete |
+| 3       | Visualizing Distributions    | ✅ Complete |
+| 4       | Shapes of Distributions      | ✅ Complete |
+| 5       | Measures of Center           | ⏳ Upcoming |
+| 6       | Measures of Spread           | ⏳ Upcoming |
