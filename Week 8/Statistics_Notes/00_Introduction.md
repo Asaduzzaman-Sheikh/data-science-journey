@@ -13,7 +13,8 @@
 3. [Chapter 2: What is a Data Distribution?](./02_Data_Distribution.md)
 4. [Chapter 3: Visualizing Distributions](./03_Visualizing_Distributions.md) _(with Python!)_
 5. [Chapter 4: Shapes of Distributions](./04_Shapes_of_Distributions.md)
-6. _(More chapters to come...)_
+6. [Chapter 5: Box Plots & Density Plots](./05_BoxPlots_DensityPlots.md)
+7. _(More chapters to come...)_
 
 ---
 
@@ -37,5 +38,6 @@
 | 2       | What is a Data Distribution? | ✅ Complete |
 | 3       | Visualizing Distributions    | ✅ Complete |
 | 4       | Shapes of Distributions      | ✅ Complete |
-| 5       | Measures of Center           | ⏳ Upcoming |
-| 6       | Measures of Spread           | ⏳ Upcoming |
+| 5       | Box Plots & Density Plots    | ✅ Complete |
+| 6       | Measures of Center           | ⏳ Upcoming |
+| 7       | Measures of Spread           | ⏳ Upcoming |
