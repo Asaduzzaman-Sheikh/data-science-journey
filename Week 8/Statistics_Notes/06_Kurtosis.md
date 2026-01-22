@@ -299,11 +299,11 @@ For courier services:
 │  WHY 4th POWER: Amplifies extremes for easy detection   │
 │                                                         │
 │  TYPES:                                                 │
-│    • Mesokurtic  (= 0)  → Normal tails                 │
-│    • Leptokurtic (> 0)  → Heavy tails, more extremes   │
-│    • Platykurtic (< 0)  → Light tails, fewer extremes  │
+│    • Mesokurtic  (= 0)  → Normal tails                  │
+│    • Leptokurtic (> 0)  → Heavy tails, more extremes    │
+│    • Platykurtic (< 0)  → Light tails, fewer extremes   │
 │                                                         │
-│  REAL USE: Finance (risk), Manufacturing (quality)     │
+│  REAL USE: Finance (risk), Manufacturing (quality)      │
 └─────────────────────────────────────────────────────────┘
 ```
 
