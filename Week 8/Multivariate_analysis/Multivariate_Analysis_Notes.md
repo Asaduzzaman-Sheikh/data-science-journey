@@ -2,8 +2,6 @@
 
 ## A Deep Thinking Guide
 
-بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
-
 ---
 
 ## Table of Contents
