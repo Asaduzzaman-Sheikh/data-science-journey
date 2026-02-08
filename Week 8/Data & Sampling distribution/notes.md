@@ -1459,135 +1459,305 @@ Want higher confidence? → Accept wider margin
 
 # Deep Dive: The Central Limit Theorem (CLT)
 
-*Based on the 3Blue1Brown visual explanation*
+> *Based on the 3Blue1Brown visual explanation*
+
+```
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║    "Order emerges from Chaos"                                    ║
+║                                                                  ║
+║    Add enough random things together,                            ║
+║    and the result is ALWAYS a Bell Curve.                        ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+```
 
 ---
 
-## The Big Idea: Order from Chaos
+## Navigation Map
+
+```
+ ┌──────────────────────────────────────────────────────────┐
+ │                  CLT Learning Path                       │
+ │                                                          │
+ │  [1] The Big Idea ──── What is CLT?                      │
+ │       │                                                  │
+ │  [2] Visual Examples ── Galton Board + Dice              │
+ │       │                                                  │
+ │  [3] The Transformation ── Watch the shape change        │
+ │       │                                                  │
+ │  [4] Making Predictions ── Mean & Std Dev rules          │
+ │       │                                                  │
+ │  [5] Worked Example ──── 100 Dice (full calculation)     │
+ │       │                                                  │
+ │  [6] Three Assumptions ── When does CLT work?            │
+ │       │                                                  │
+ │  [7] The Formula ──────── Where it comes from            │
+ │       │                                                  │
+ │  [8] Term-by-Term ────── Decode every symbol             │
+ │       │                                                  │
+ │  [9] Applied Practice ── Use the formula on real data    │
+ │       │                                                  │
+ │  [10] PDF Explained ──── Density vs. Probability         │
+ │       │                                                  │
+ │  [11] What CLT Gives ─── The Shape (not the center)      │
+ │       │                                                  │
+ │  [12] Using the Shape ── Area, Safe Zones, Accuracy      │
+ │       │                                                  │
+ │  [13] Real World ──────── Industry applications          │
+ │       │                                                  │
+ │  [14] Quick Reference ── Cheat sheet & memory aids       │
+ │                                                          │
+ └──────────────────────────────────────────────────────────┘
+```
+
+---
+
+## [1] The Big Idea: Order from Chaos
+
+```
+  CHAOS                                    ORDER
+                    C L T
+  ??!#@&*!   ──────────────────────►     ╭─────╮
+  Random                                ╭╯     ╰╮
+  Individual                           ╭╯       ╰╮
+  Events                            ───╯         ╰───
+                                    The Bell Curve
+```
 
 The Central Limit Theorem is about **predictable order emerging from seemingly chaotic individual events**.
 
-> **Statement:** If you take a random thing (like rolling a die) and do it many times and **add up the results**, the sum will always form a specific shape called a **Bell Curve** (Normal Distribution)—regardless of what the original distribution looked like.
+> **Statement:** If you take a random thing (like rolling a die) and do it many times and **add up the results**, the sum will always form a specific shape called a **Bell Curve** (Normal Distribution) — regardless of what the original distribution looked like.
 
 This is why the Normal Distribution appears so frequently in nature and mathematics.
 
 ---
 
-## Step 1: The Bell Curve Shape
+## [2] The Action — Adding Random Numbers
 
-The Normal Distribution (Bell Curve) is a graph with a big lump in the middle and tails tapering off on both sides.
-
-**Real-Life Example (Heights):**
-If you plot the heights of a large group of people, most cluster around the average height, and fewer are very short or very tall. This creates a Bell Curve.
-
-**Why it matters:** This shape allows us to make precise predictions about random events.
-
----
-
-## Step 2: The Action — Adding Random Numbers
-
-The theorem activates when you **add multiple random numbers together**. Two primary examples:
+The theorem activates when you **add multiple random numbers together**.
 
 ### Example A: The Galton Board
 
-Imagine a board with pegs. A ball falls and hits a peg, bouncing left or right.
+```
+              ▼ Ball drops in
+              │
+          ┌───●───┐          Row 1: bounce left or right
+          │       │
+        ┌─●─┐ ┌─●─┐        Row 2
+        │   │ │   │
+      ┌─●─┐●┐●┌─●─┐       Row 3
+      │   │││ │   │
+    ┌─●─┐●┐●●┐●┌─●─┐     Row 4
+    │   ││││││ │   │
+  ┌─●─┐●┐●●●●┐●┌─●─┐   Row 5
+  │   ││││││││ │   │
+ ─┴───┴┴┴┴┴┴┴┴┴───┴─
+  ▌   ▌▌▐████▌▌▌   ▌   ◄── Balls pile up
+  ▌   ▌▐█████▌▌    ▌
+  ▌   ▐██████▌     ▌       The Bell Curve!
+  ▌  ▐████████▌    ▌
+  ▌▐████████████▌  ▌
+```
 
-- Left = -1, Right = +1
-- The ball hits multiple rows of pegs
-- The ball's final position = the **sum** of all those bounces
-
-**How it illustrates CLT:** Each bounce is a tiny, random, independent event. One ball could end up anywhere. But drop thousands of balls, and their final positions form a Bell Curve at the bottom. Individual bounces are random; the collective result is predictable.
+- **Left bounce = -1**, **Right bounce = +1**
+- Final position = the **sum** of all bounces
+- One ball: unpredictable. Thousands of balls: **Bell Curve at the bottom**
 
 ### Example B: Rolling Dice
 
-- One die roll is a "random variable"
-- Roll many dice (e.g., 100) and add all the numbers together
-- The distribution of these sums forms a Bell Curve
+```
+  ┌─────┐
+  │ ● ● │   One die roll = a "random variable"
+  │  ●  │   Roll many dice → add them up
+  │ ● ● │   The distribution of sums → Bell Curve
+  └─────┘
+```
 
 ---
 
-## Step 3: The Transformation
+## [3] The Transformation
 
-This is the **core of the theorem**. The shape of the distribution changes as you add more things together.
+This is the **core of the theorem**. Watch the shape morph as you add more dice:
 
-| Number of Dice | Shape of Distribution | Description |
-|----------------|----------------------|-------------|
-| **1 Die** | Flat (Uniform) | Equal chance (1/6) of 1, 2, 3, 4, 5, or 6 |
-| **2 Dice** | Triangle | 7 is most common; 2 and 12 are rare |
-| **Many Dice** | Bell Curve | A smooth, symmetric Normal Distribution |
+```
+  1 DIE (Flat / Uniform)          2 DICE (Triangle)           MANY DICE (Bell Curve)
+
+  Probability                     Probability                  Probability
+  ▲                               ▲                            ▲
+  │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓          │        ▓                   │        ▓▓▓
+  │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓          │       ▓▓▓                  │      ▓▓▓▓▓▓▓
+  │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓          │      ▓▓▓▓▓                 │    ▓▓▓▓▓▓▓▓▓▓▓
+  │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓          │     ▓▓▓▓▓▓▓                │  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+  │ ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓          │    ▓▓▓▓▓▓▓▓▓               │▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+  └──────────────────►            └────────────────►           └────────────────────►
+   1  2  3  4  5  6                2 3 4 5 6 7 8 9 ...         Sum values
+
+   Each face = 1/6               7 is most common;            Smooth, symmetric
+   chance. Flat.                  2 and 12 are rare.           Normal Distribution.
+```
 
 > **The key insight:** It does not matter if the die is "fair" or "weighted" (unfair). Even with a weird die that almost always rolls a 1 or 6, if you add enough of them together, the sum **still** looks like a Bell Curve. All information about the original distribution gets "washed away."
 
 ---
 
-## Step 4: Making Predictions
+## [4] Making Predictions
 
-Once we know the sum looks like a Bell Curve, we can predict the outcome using just **two numbers**:
+Once we know the sum looks like a Bell Curve, we predict the outcome using just **two numbers**:
+
+```
+                         THE BELL CURVE
+
+                            ╭───╮
+                          ╭─╯   ╰─╮
+                        ╭─╯       ╰─╮
+                      ╭─╯     ▲     ╰─╮
+                   ╭──╯       │       ╰──╮
+              ─────╯          │          ╰─────
+                              │
+                              μ  ◄── THE MEAN (Center)
+
+              │◄──── σ ─────►│◄──── σ ─────►│
+                     THE STANDARD DEVIATION (Spread)
+```
 
 ### The Mean (μ) — The Center
 
-The average or "center of mass" of the distribution.
-
 ```
-If you add n dice, the new mean = n × (average of one die)
+New Mean = n × (average of one item)
+
+Example: 100 dice × 3.5 average = 350
 ```
 
-- The mean "just marches steadily to the right" — this is the easy part.
+The mean "just marches steadily to the right" — this is the **easy part**.
 
 ### The Standard Deviation (σ) — The Spread
 
-Measures how wide or spread out the curve is.
-
 ```
-When you add n dice, the new spread = √n × (standard deviation of one die)
+New Spread = √n × (standard deviation of one item)
+
+Example: √100 × 1.71 = 10 × 1.71 = 17.1
 ```
 
-> **Critical Rule:** The center grows by **n**, but the spread only grows by **√n**. This is why large sums become relatively more predictable.
+> **Critical Rule:**
+> ```
+> Center grows by ........... n     (fast — linear)
+> Spread grows by ........... √n   (slow — square root)
+> ```
+> This is why large sums become relatively more predictable.
 
 ---
 
-## Step 5: Concrete Example — Sum of 100 Dice
+## [5] Concrete Example — Sum of 100 Dice
 
-### A. Stats for ONE Die
-
-| Statistic | Value |
-|-----------|-------|
-| Average (Mean) | 3.5 |
-| Standard Deviation | 1.71 |
-
-The standard deviation is calculated by: finding the distance of every outcome from the mean, squaring those differences, averaging them (this is Variance), and taking the square root.
-
-### B. Scale It Up (n = 100 dice)
-
-| Statistic | Calculation | Result |
-|-----------|-------------|--------|
-| **New Mean** | 100 × 3.5 | **350** |
-| **New Standard Deviation** | √100 × 1.71 = 10 × 1.71 | **17.1** |
-
-### C. The Prediction (The 95% Rule)
-
-There is a Rule of Thumb: **95% of Bell Curve values fall within 2 standard deviations of the center**.
+### Phase A: Stats for ONE Die
 
 ```
-2 × 17.1 = 34.2
-
-Low end:  350 - 34.2 = 315.8
-High end: 350 + 34.2 = 384.2
+  ┌─────────────────────────────────┐
+  │  Single Die Statistics          │
+  │                                 │
+  │  Outcomes:  1, 2, 3, 4, 5, 6   │
+  │  Mean (μ):  3.5                 │
+  │  Std Dev (σ): 1.71              │
+  └─────────────────────────────────┘
 ```
 
-**Result:** If you roll 100 dice, the sum will be between **316 and 384** roughly **95% of the time**.
+<details>
+<summary><b>How is Standard Deviation (1.71) calculated? (Click to expand)</b></summary>
+
+```
+Step 1: Find each distance from the mean (3.5):
+        1 - 3.5 = -2.5
+        2 - 3.5 = -1.5
+        3 - 3.5 = -0.5
+        4 - 3.5 = +0.5
+        5 - 3.5 = +1.5
+        6 - 3.5 = +2.5
+
+Step 2: Square each distance:
+        6.25, 2.25, 0.25, 0.25, 2.25, 6.25
+
+Step 3: Average the squares (= Variance):
+        (6.25 + 2.25 + 0.25 + 0.25 + 2.25 + 6.25) / 6
+        = 17.5 / 6
+        = 2.917
+
+Step 4: Square root (= Standard Deviation):
+        √2.917 ≈ 1.71
+```
+
+</details>
+
+### Phase B: Scale It Up (n = 100 dice)
+
+```
+╔═══════════════════════════════════════════════════════════════╗
+║                                                               ║
+║   ┌──────────────┬─────────────────────┬──────────────┐       ║
+║   │  Statistic   │    Calculation      │    Result    │       ║
+║   ├──────────────┼─────────────────────┼──────────────┤       ║
+║   │  New Mean    │   100 × 3.5         │     350      │       ║
+║   │  New Std Dev │   √100 × 1.71      │     17.1     │        ║
+║   │              │   = 10 × 1.71       │              │       ║
+║   └──────────────┴─────────────────────┴──────────────┘       ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+```
+
+### Phase C: The Prediction (The 95% Rule)
+
+**Rule of Thumb:** 95% of Bell Curve values fall within **2 standard deviations** of the center.
+
+```
+   2 × 17.1 = 34.2
+
+   ──────────────────────────────────────────────────
+
+                         ╭───╮
+                       ╭─╯   ╰─╮
+                     ╭─╯       ╰─╮
+                   ╭─╯           ╰─╮
+              ─────╯   ◄─ 95% ─►  ╰─────
+              │                         │
+            315.8                     384.2
+              │         350           │
+              │◄── 34.2 ─┤── 34.2 ──►│
+
+   ──────────────────────────────────────────────────
+```
+
+> **Result:** If you roll 100 dice, the sum will be between **316 and 384** roughly **95% of the time**.
 
 ---
 
-## The Three Assumptions
+## [6] The Three Assumptions
 
-For the CLT to work, three conditions must be true:
+For the CLT to work, **three gates** must be passed:
 
-| Assumption | Meaning | Example |
-|------------|---------|---------|
-| **Independence** | One event doesn't affect the next | One die roll doesn't change the next roll |
-| **Identically Distributed** | You are repeating the same type of random thing | Rolling the same die every time |
-| **Finite Variance** | The spread of the random variable cannot be infinite | Standard dice have finite outcomes (1-6) |
+```
+  ┌─────────────────────┐    ┌─────────────────────┐    ┌─────────────────────┐
+  │                     │    │                     │    │                     │
+  │   GATE 1            │    │   GATE 2            │    │   GATE 3            │
+  │   ═══════           │    │   ═══════           │    │   ═══════           │
+  │                     │    │                     │    │                     │
+  │   INDEPENDENCE      │    │   IDENTICAL         │    │   FINITE            │
+  │                     │    │   DISTRIBUTION      │    │   VARIANCE          │
+  │   One event does    │    │                     │    │                     │
+  │   NOT affect the    │    │   Same type of      │    │   The spread of     │
+  │   next one.         │    │   random thing      │    │   the variable      │
+  │                     │    │   each time.        │    │   cannot be ∞.      │
+  │   Example:          │    │                     │    │                     │
+  │   Die roll #1 does  │    │   Example:          │    │   Example:          │
+  │   not change die    │    │   Rolling the SAME  │    │   Dice have finite  │
+  │   roll #2.          │    │   die every time.   │    │   outcomes (1-6).   │
+  │                     │    │                     │    │                     │
+  │   Status: [✓]       │    │   Status: [✓]      │    │   Status: [✓]       │
+  │                     │    │                     │    │                     │
+  └─────────────────────┘    └─────────────────────┘    └─────────────────────┘
+
+  ALL THREE PASSED? ──► CLT APPLIES ──► Sum → Bell Curve
+  ANY ONE FAILS?   ──► CLT MAY BREAK ──► No guarantee
+```
 
 > If the variance is not finite, the CLT breaks down. The sum does not converge to a Bell Curve, and the standard prediction formulas stop working.
 
@@ -1595,191 +1765,372 @@ For the CLT to work, three conditions must be true:
 
 ---
 
-## Where Do the Formulas Come From?
+## [7] Where Do the Formulas Come From?
 
-The "scary formula" involving e, π, and σ is not random. Each piece performs a specific job.
+The "scary formula" involving **e**, **π**, and **σ** is not random. Each piece performs a specific job.
 
-### Building the Shape Step-by-Step
+### Building the Shape — Layer by Layer
 
-**1. The "Lump" — e^(-x²)**
+```
+  LAYER 1: THE LUMP
+  ══════════════════
 
-Mathematical functions describing growth look like 2^x or e^x (curving up).
+     e^x (growth)          e^(-x) (decay)         e^(-x²) (symmetric lump)
 
-- Make the exponent **negative** (e^(-x)): it curves **down** (exponential decay)
-- **Square** the x (e^(-x²)): the decay happens in **both directions** (left and right), creating a smooth lump in the middle
+       ╱                   ╲                              ╭───╮
+      ╱                     ╲                           ╭─╯   ╰─╮
+     ╱                       ╲                        ╭─╯       ╰─╮
+    ╱                         ╲╲                   ───╯           ╰───
+   ──────────            ──────────              ──────────────────────
+   shoots UP             crashes DOWN            crashes BOTH sides
+                                                 = THE BELL SHAPE!
+```
 
-This is the "body" of the Bell Curve.
+- `e^x` = exponential **growth** (curving up)
+- `e^(-x)` = exponential **decay** (crashes down to the right)
+- `e^(-x²)` = squaring makes negatives positive = **symmetric** decay in both directions
 
-**2. The "Width" — σ**
+```
+  LAYER 2: THE WIDTH (σ)
+  ═══════════════════════
 
-To make the curve wider or narrower, we divide x by a number. This number is σ (sigma), the **Standard Deviation**.
+     Small σ (tight)          Large σ (wide)
 
-**3. The "Area" — √(2π)**
+         ▓▓                     ▓▓▓▓▓▓▓▓▓
+        ▓▓▓▓                  ▓▓▓▓▓▓▓▓▓▓▓▓▓
+       ▓▓▓▓▓▓               ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+   ─────────────         ──────────────────────────
 
-In probability, the total chance of everything happening must add up to **1** (100%).
+   Divide x by σ to stretch or squish the curve.
+```
 
-- The basic "Lump" function (e^(-x²)) has an area of √π (approximately 1.77)
-- To fix this, we divide the formula by √π so the total area becomes exactly 1
-- **This is why π appears in a probability formula**
+```
+  LAYER 3: THE AREA FIX — √(2π)
+  ═══════════════════════════════
+
+      PROBLEM:  The basic lump e^(-x²) has area = √π ≈ 1.77
+      GOAL:     Total probability must = 1 (100%)
+      FIX:      Divide by √π → area becomes exactly 1
+
+      ★ THIS IS WHY π APPEARS IN A PROBABILITY FORMULA ★
+```
 
 ---
 
-## The Full Formula — Interpreted Term by Term
+## [8] The Full Formula — Term by Term
 
 ```
-f(x) = (1 / (σ√(2π))) × e^(-½((x-μ)/σ)²)
+  ╔══════════════════════════════════════════════════════════════╗
+  ║                                                              ║
+  ║           1                    1   x - μ  ²                  ║
+  ║   f(x) = ─────── × e^( -  ─ ( ───── )  )                     ║
+  ║          σ√(2π)                2     σ                       ║
+  ║                                                              ║
+  ╚══════════════════════════════════════════════════════════════╝
 ```
 
-### Each Term Explained
+### Anatomy of the Formula
 
-| Term | Symbol | Job / Interpretation |
-|------|--------|---------------------|
-| **Base** | e | Standard base for growth/decay functions. Not strictly necessary (could use 2 or 3), but mathematically convenient. |
-| **Decay** | − (negative sign) | Makes probability drop off as you move away from the center. |
-| **Symmetry** | (...)² | Squaring makes negative numbers positive, so the graph decays the same way left and right. Creates the "bell." |
-| **Center** | μ (Mu / Mean) | Subtracting μ slides the graph so the peak sits exactly over the average. |
-| **Spread** | σ (Sigma / Standard Deviation) | Dividing by σ stretches or squishes the graph horizontally. Large σ = wide curve. Small σ = narrow spike. |
-| **Z-Score** | (x-μ)/σ | "How many standard deviations away from the mean is this value?" |
-| **The ½** | -½ | Mathematical convenience so the standard deviation comes out cleanly as σ in calculus. |
-| **Normalizer** | 1/(σ√(2π)) | Shrinks the curve so total Probability = 100% (area under curve = 1). |
+```
+         ┌─────────────────────────────────────────────────────────┐
+         │                    THE FORMULA                          │
+         │                                                         │
+         │    ┌──────────┐       ┌────────────────────────────┐    │
+         │    │NORMALIZER│   ×   │         BELL SHAPE         │    │
+         │    │          │       │                            │    │
+         │    │    1     │       │         -½((x-μ)/σ)²       │    │
+         │    │ ──────── │       │    e                       │    │
+         │    │ σ√(2π)   │       │                            │    │
+         │    └────┬─────┘       └──────────┬─────────────────┘    │
+         │         │                        │                      │
+         │    Shrinks height           Creates the bell shape      │
+         │    so area = 1              from individual pieces:     │
+         │                                                         │
+         │                        ┌─────────────────┐              │
+         │                        │  (x - μ)        │              │
+         │                        │  ───────        │              │
+         │                        │    σ            │              │
+         │                        │                 │              │
+         │                        │  = Z-Score      │              │
+         │                        │  "How many σ    │              │
+         │                        │   from center?" │              │
+         │                        └─────────────────┘              │
+         └─────────────────────────────────────────────────────────┘
+```
 
-### The Three Layers of the Formula
+### Each Symbol Decoded
 
-1. **Draw a Bell:** The e^(-(...)²) part creates the symmetric lump shape
-2. **Center it at μ and stretch it by σ:** The (x-μ)/σ part positions and scales the curve
-3. **Shrink it so area = 1:** The 1/(σ√(2π)) part ensures it works as a valid probability tool
+```
+  ┌──────────┬─────────────────────┬───────────────────────────────────────────────┐
+  │  Symbol  │       Name          │              Job                              │
+  ├──────────┼─────────────────────┼───────────────────────────────────────────────┤
+  │    e     │  Euler's Number     │  Base for growth/decay. Could use 2 or 3,     │
+  │          │  (≈ 2.718)          │  but e is mathematically convenient.          │
+  ├──────────┼─────────────────────┼───────────────────────────────────────────────┤
+  │    −     │  Negative sign      │  Creates DECAY: probability drops off as      │
+  │          │                     │  you move away from the center.               │
+  ├──────────┼─────────────────────┼───────────────────────────────────────────────┤
+  │  (...)²  │  Squaring           │  Creates SYMMETRY: left side mirrors right    │
+  │          │                     │  side. This makes it a "bell."                │
+  ├──────────┼─────────────────────┼───────────────────────────────────────────────┤
+  │    μ     │  Mu (Mean)          │  SLIDES the graph so the peak sits over       │
+  │          │                     │  your average value.                          │
+  ├──────────┼─────────────────────┼───────────────────────────────────────────────┤
+  │    σ     │  Sigma (Std Dev)    │  STRETCHES the graph. Large σ = wide curve.   │
+  │          │                     │  Small σ = narrow spike.                      │
+  ├──────────┼─────────────────────┼───────────────────────────────────────────────┤
+  │ (x-μ)/σ  │  Z-Score            │  "How many standard deviations is x away      │
+  │          │                     │  from the mean?"                              │
+  ├──────────┼─────────────────────┼───────────────────────────────────────────────┤
+  │   -½     │  The half           │  Math convenience so σ comes out cleanly      │
+  │          │                     │  in calculus later.                           │
+  ├──────────┼─────────────────────┼───────────────────────────────────────────────┤
+  │1/(σ√2π)  │  Normalizer         │  Shrinks height so total area under the       │
+  │          │                     │  curve = exactly 1 (100% probability).        │
+  └──────────┴─────────────────────┴───────────────────────────────────────────────┘
+```
+
+### The Three Layers — Summary
+
+```
+  Layer 1:  DRAW A BELL         e^(-(...)²)             ← Creates the symmetric lump
+            │
+  Layer 2:  POSITION & SCALE    (x-μ)/σ                 ← Centers it and sets width
+            │
+  Layer 3:  FIX THE AREA        1/(σ√(2π))              ← Ensures total probability = 1
+```
 
 ---
 
-## Applied Math Practice — The 100 Dice
+## [9] Applied Math Practice — The 100 Dice
 
-Using the formula on our concrete example: "What is the density (height of the curve) for a sum of 384?"
-
-### Inputs
-
-- Mean (μ): 350
-- Standard Deviation (σ): 17.1
-- Question value (x): 384
-
-### Calculation Walkthrough
-
-**1. Find the Z-Score**
+**Question:** What is the probability density (height of the curve) at x = 384?
 
 ```
-(x - μ) / σ = (384 - 350) / 17.1 = 34 / 17.1 ≈ 2
+  ╔══════════════════════════╗
+  ║  INPUTS                  ║
+  ║  ────────                ║
+  ║  Mean (μ)     = 350      ║
+  ║  Std Dev (σ)  = 17.1     ║
+  ║  Question (x) = 384      ║
+  ╚══════════════════════════╝
 ```
 
-Interpretation: The value 384 is exactly **2 standard deviations** away from the mean.
-
-**2. Square and Halve (The Exponent)**
+### Step-by-Step Calculation
 
 ```
--½ × (2)² = -½ × 4 = -2
+  ┌─────────────────────────────────────────────────────────────────┐
+  │  STEP 1: Find the Z-Score                                       │
+  │  ═══════════════════════                                        │
+  │                                                                 │
+  │    (x - μ) / σ  =  (384 - 350) / 17.1                           │
+  │                  =  34 / 17.1                                   │
+  │                  ≈  2                                           │
+  │                                                                 │
+  │    Meaning: 384 is exactly 2 standard deviations from the mean  │
+  └─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+  ┌─────────────────────────────────────────────────────────────────┐
+  │  STEP 2: Square and Halve (The Exponent)                        │
+  │  ═══════════════════════════════════════                        │
+  │                                                                 │
+  │    -½ × (2)²  =  -½ × 4  =  -2                                  │
+  │                                                                 │
+  │    Exponential part:  e^(-2) ≈ 0.135                            │
+  └─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+  ┌─────────────────────────────────────────────────────────────────┐
+  │  STEP 3: Normalize (The Front Term)                             │
+  │  ══════════════════════════════════                             │
+  │                                                                 │
+  │    1 / (σ × √(2π))  =  1 / (17.1 × 2.5)                         │
+  │                      =  1 / 42.75                               │
+  │                      ≈  0.023                                   │
+  └─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+  ┌─────────────────────────────────────────────────────────────────┐
+  │  STEP 4: Multiply                                               │
+  │  ════════════════                                               │
+  │                                                                 │
+  │    0.023 × 0.135 ≈ 0.0031                                       │
+  │                                                                 │
+  │  ┌────────────────────────────────────────────────────────────┐ │
+  │  │  RESULT: f(384) ≈ 0.0031                                   │ │
+  │  │                                                            │ │
+  │  │  This is the HEIGHT of the curve at x=384.                 │ │
+  │  │  It is NOT the probability — it is the DENSITY.            │ │
+  │  │  To get probability, you calculate the AREA (integral)     │ │
+  │  │  between two points.                                       │ │
+  │  └────────────────────────────────────────────────────────────┘ │
+  └─────────────────────────────────────────────────────────────────┘
 ```
-
-So the exponential part = e^(-2) ≈ **0.135**
-
-**3. Normalize (The Front Term)**
-
-```
-1 / (σ × √(2π)) = 1 / (17.1 × 2.5) = 1 / 42.75 ≈ 0.023
-```
-
-**4. Final Result**
-
-```
-0.023 × 0.135 ≈ 0.0031
-```
-
-**What does 0.0031 mean?** This is the **height** of the curve at 384 (the probability density). Because the curve is spread out (from 316 to 384), the probability of getting **exactly** 384 is very low. The formula allows computers to **integrate** (calculate the area) between two points, which is how we determine that 95% of rolls fall between 316 and 384.
 
 ---
 
----
+## [10] Why Is It Called a "Probability Density Function"?
 
-## Why Is It Called a "Probability Density Function"?
+### The Key Distinction
 
-### The Problem with Exact Numbers
+```
+  ┌──────────────────────────────┐         ┌──────────────────────────────┐
+  │   DISCRETE (Dice)            │         │   CONTINUOUS (Bell Curve)    │
+  │                              │         │                              │
+  │   "What is the probability   │         │   "What is the probability   │
+  │    of rolling exactly 4?"    │         │    of being exactly          │
+  │                              │         │    5.91111... feet tall?"    │
+  │   ANSWER: 1/6 = 16.7%        │         │                              │
+  │   ✓ Has a clear answer       │         │   ANSWER: Effectively ZERO   │
+  │                              │         │   ✗ Infinite decimal points  │
+  └──────────────────────────────┘         └──────────────────────────────┘
+```
 
-For **discrete** outcomes (dice), you can ask: "What is the probability of rolling exactly a 4?" and get a clear answer (1/6).
+### The Solution: Area = Probability
 
-But the Bell Curve is **continuous**. It represents things like height or time, where you can have infinite decimal precision (5.9 feet, 5.91 feet, 5.9111 feet...).
+```
+                      ╭───╮
+                    ╭─╯   ╰─╮
+                  ╭─╯       ╰─╮
+                ╭─╯   ████    ╰─╮           ████ = shaded AREA
+           ─────╯     ████      ╰─────            between 5.8 and 6.0
+                │     ████     │
+               5.8    ████    6.0
+                      ████
 
-> For continuous variables, the chance of hitting one specific number with infinite precision is effectively **zero**.
-
-### Area = Probability
-
-Because we cannot look at single points, we look at **ranges**:
-
-- Instead of: "What is the chance of being exactly 5.9 feet?"
-- We ask: "What is the chance of being between 5.8 and 6.0 feet?"
-- The answer = the **area under the curve** between those two numbers
+     "What is the chance of being between 5.8 and 6.0 feet tall?"
+      = the AREA of the shaded region under the curve
+```
 
 ### Why "Density"?
 
-The y-axis (height) of the curve does **not** show probability directly. It shows **Probability Density**.
-
-Think of it like the density of a solid object: the "density" at one tiny point tells you how heavy the material is there, but to get the actual "weight" (probability), you have to take a **slice** of it.
+```
+  ┌───────────────────────────────────────────────────────┐
+  │                                                       │
+  │  Think of it like physical density:                   │
+  │                                                       │
+  │  DENSITY at a point   →   tells you "how heavy"       │
+  │                            the material is there      │
+  │                                                       │
+  │  ACTUAL WEIGHT        →   requires taking a SLICE     │
+  │                            (density × volume)         │
+  │                                                       │
+  │  Similarly:                                           │
+  │                                                       │
+  │  y-axis HEIGHT        →   Probability DENSITY         │
+  │  (what the formula               │                    │
+  │   gives you)                     │                    │
+  │                                  ▼                    │
+  │  ACTUAL PROBABILITY   →   requires taking a SLICE     │
+  │                            (area under the curve)     │
+  │                                                       │
+  └───────────────────────────────────────────────────────┘
+```
 
 ---
 
-## What Does CLT Actually Tell Us?
+## [11] What Does CLT Actually Tell Us?
 
-### Finding the Center is Easy (No Theorem Needed)
+### The Center is Easy — No Theorem Needed
 
 If one die averages 3.5, then 100 dice average 350. Simple multiplication. No CLT required.
 
-### CLT Gives Us the Shape
+### CLT Gives Us THE SHAPE
 
-The CLT answers the harder question: **"How likely are we to miss the center, and by how much?"**
+The CLT answers the **harder** question: "How likely are we to miss the center, and by how much?"
 
-| What | Source | Difficulty |
-|------|--------|------------|
-| **Shape** (Bell Curve) | Given by CLT | The "magic" — the hard part |
-| **Position** (Center/Mean) | Simple arithmetic (n × average) | Easy |
-| **Width** (Standard Deviation) | Simple arithmetic (√n × σ) | Easy |
+```
+  ╔═════════════════════════════════════════════════════════════╗
+  ║                                                             ║
+  ║         What              Source           Difficulty       ║
+  ║     ─────────────   ──────────────────   ──────────────     ║
+  ║                                                             ║
+  ║     SHAPE            Given by CLT        The "magic"        ║
+  ║     (Bell Curve)     (the theorem)       (the hard part)    ║
+  ║                                                             ║
+  ║     POSITION         Simple arithmetic   Easy               ║
+  ║     (Center/Mean)    n × average         (just multiply)    ║
+  ║                                                             ║
+  ║     WIDTH            Simple arithmetic   Easy               ║
+  ║     (Std Dev)        √n × σ             (just multiply)     ║
+  ║                                                             ║
+  ╚═════════════════════════════════════════════════════════════╝
+```
 
-> **The "magic":** No matter what weird shape you start with (fair die, weighted die, chaotic Galton board), the sum of those things eventually turns into the **same specific shape** — the Bell Curve. All information about the original distribution gets "washed away."
+### The Universality
 
-### The Curve Is Universal
+```
+  ANY starting shape                           ALWAYS the same result
 
-You do not need to look for a new curve shape every time. The CLT **guarantees** the answer is always the same curve. We only need to find **two numbers** to fit it to our problem: the Mean (μ) and the Standard Deviation (σ).
+  ▓▓▓▓▓▓▓▓▓▓  (Flat)      ─┐
+                           │
+     ▓                     │                      ╭───╮
+    ▓▓▓                    │   ADD ENOUGH    ╭───╯   ╰───╮
+   ▓▓▓▓▓      (Triangle)  ─┤   ──────────►  ╭╯           ╰╮
+                           │   TOGETHER     ╯               ╰
+  ▓▓    ▓▓                 │                The Bell Curve
+  ▓▓    ▓▓    (Bimodal)   ─┤
+                           │               "All information about
+  ▓         ▓▓             │                the original shape
+  ▓▓▓▓▓▓    ▓▓ (Skewed)   ─┘                gets WASHED AWAY."
+```
 
-### Without CLT (The Hard Way)
+### Without CLT — The Hard Way
 
-Without the theorem, you would have to manually calculate every possible combination of outcomes using a process called **Convolution**. The CLT allows us to skip this painful math and jump straight to the Bell Curve approximation.
+Without the theorem, you would have to use **Convolution** — manually calculating every possible combination of outcomes. The CLT lets us skip this and jump straight to the Bell Curve approximation.
 
 ---
 
-## What Can We Do with the Shape?
+## [12] Using the Shape
 
 Once we know the shape is a Bell Curve, we stop guessing and start measuring.
 
-### 1. Calculate Exact Probabilities (Area)
+### Power 1: Calculate Exact Probabilities
 
-Because the Bell Curve is a specific mathematical function, we can calculate the area under any part of it. **Area = Probability.**
+**Area = Probability.** We can calculate the area under any part of the curve.
 
-- Question: "What is the exact chance the sum of 100 dice will be between 300 and 320?"
-- Method: Measure the area of the curve between 300 and 320
-- Without the shape, you would have to guess; with the shape, you can calculate to the decimal point
+### Power 2: Create "Safe Zones" (The Rule of Thumb)
 
-### 2. Create "Safe Zones" (The Rule of Thumb)
+```
+  ──────────────────────────────────────────────────────────────────────
 
-The most common use of the shape. Because the shape is always the same, we know exactly how much data fits within the "spread":
+                              ╭───╮
+                           ╭──╯   ╰──╮
+                         ╭─╯         ╰─╮
+                       ╭─╯             ╰─╮
+                    ╭──╯                 ╰──╮
+              ──────╯                       ╰──────
 
-| Standard Deviations | Coverage |
-|---------------------|----------|
-| 1σ from center | ~68% of results |
-| 2σ from center | ~95% of results |
-| 3σ from center | ~99.7% of results |
+              │◄─        99.7% (3σ)          ─►│
+                 │◄─     95%   (2σ)      ─►│
+                    │◄─  68%   (1σ)  ─►│
 
-### 3. Measure Accuracy (Empirical Average)
+  ──────────────────────────────────────────────────────────────────────
 
-The shape tells us how much we should trust our data.
+  ┌─────────┬───────────┬───────────────────────────────────────┐
+  │  Range  │  Coverage │  Visual                               │
+  ├─────────┼───────────┼───────────────────────────────────────┤
+  │   1σ    │   ~68%    │  ████████████░░░░░░░░                 │
+  │   2σ    │   ~95%    │  ██████████████████░░                 │
+  │   3σ    │   ~99.7%  │  ████████████████████                 │
+  └─────────┴───────────┴───────────────────────────────────────┘
+```
 
-- If the Bell Curve is very **wide** → our average is unreliable
-- If the Bell Curve is **narrow** → our average is precise
-- This lets scientists and pollsters know if their sample size was big enough
+### Power 3: Measure Accuracy
+
+```
+  WIDE Bell Curve              NARROW Bell Curve
+  (Unreliable average)         (Precise average)
+
+     ╭─────────────╮                ╭──╮
+  ╭──╯             ╰──╮          ╭──╯  ╰──╮
+  ╯                   ╰         ╭╯        ╰╮
+  ─────────────────────       ──╯          ╰──
+
+  "We're NOT very sure            "We're VERY sure
+   about this estimate"            about this estimate"
+```
 
 > **Summary:** The shape turns chaos into geometry. Instead of "Who knows what will happen?", you say: "There is exactly a 95% chance the result is between X and Y."
 
@@ -1787,106 +2138,222 @@ The shape tells us how much we should trust our data.
 
 ## Measuring the Area: Two Methods
 
-### Method A: The Shortcut — The "Rule of Thumb" (68-95-99.7)
+### Method A: The Shortcut — Rule of Thumb (68-95-99.7)
 
-For most practical purposes, you do not need calculus. Statisticians have already measured the area:
+Statisticians already measured the area for us. No calculus needed.
 
 ```
-1 Standard Deviation  → covers ~68% of total area
-2 Standard Deviations → covers ~95% of total area
-3 Standard Deviations → covers ~99.7% of total area
+  ┌───────────────────────────────────────────────────┐
+  │  Want 68% confidence?  → Use 1σ from center       │
+  │  Want 95% confidence?  → Use 2σ from center       │
+  │  Want 99.7% confidence? → Use 3σ from center      │
+  └───────────────────────────────────────────────────┘
 ```
-
-**How to use it:** If you want to be "95% sure" of a result, calculate where "2 Standard Deviations" falls and say the answer is between those two points. No calculus needed.
 
 ### Method B: The Rigorous Way — The Integral
 
-If you need a number that isn't exactly 1, 2, or 3 standard deviations (like 1.5 deviations), you must use calculus.
+For non-integer standard deviations (like 1.5σ or 4.2σ), use calculus or a computer.
 
-- Take the formula for the Normal Distribution
-- Calculate the **definite integral** between your two boundary values (point a and point b)
-- In practice, computers or statistical tables handle this
+```
+                     b
+  P(a ≤ X ≤ b) =   ∫  f(x) dx
+                     a
 
----
-
-## Real-World Applications
-
-### A. Why the Formula is Essential in Industry
-
-The "Rule of Thumb" shortcut (68-95-99.7) only works for exact integers of standard deviation. In the real world, a safety engineer might need "3.5 standard deviations" or "4.2 standard deviations." The base formula is required for this precision.
-
-### B. Computers Need the Formula
-
-When you ask a computer (Excel, Python, engineering software) for a probability, it does not look up a "rule of thumb." It uses the base formula (e^(-x²)) to mathematically calculate the area under the curve.
-
-### C. Six Sigma (High-Stakes Manufacturing)
-
-In manufacturing (airplanes, microchips), 99.7% quality (3σ) is considered **bad**.
-
-- If airplanes were built with 99.7% quality, thousands would crash daily
-- Industries aim for "Six Sigma" (6σ) = 99.99966% safe
-- To calculate these tiny risks (0.00034%), you need the rigorous formula
-
-### D. Demographics (Heights)
-
-A person's height is the result of thousands of tiny genetic and environmental factors "adding up." Because it is a sum of many small random things, the CLT applies, and the result forms a predictable Bell Curve.
-
-### E. Fraud/Quality Detection
-
-If someone claims a die is fair, roll it 100 times and sum the numbers. If the sum is 200, you know the die is rigged — because our calculation proved a fair die sum must be between 316 and 384 (95% of the time). A result of 200 is mathematically impossible for a fair die.
+  In practice → computers or statistical tables handle this.
+```
 
 ---
 
-## Summary: The Shortcut vs. The Formula
+## [13] Real-World Applications
 
-| Tool | Use Case | When to Use |
-|------|----------|-------------|
-| **The Shortcut** (Mean ± 2σ) | Quick estimates, human intuition | Checking a die roll, rough predictions |
-| **The Formula** (e^(-x²) integral) | Precision, computers, non-integer σ | Building bridges, predicting crash risks, Six Sigma |
+```
+  ┌──────────────────────────────────────────────────────────────────────┐
+  │                                                                      │
+  │  APPLICATION A: SIX SIGMA (Manufacturing)                            │
+  │  ────────────────────────────────────────                            │
+  │                                                                      │
+  │  In manufacturing (airplanes, microchips), 99.7% quality (3σ)        │
+  │  is considered BAD.                                                  │
+  │                                                                      │
+  │    3σ = 99.7%     →  If you built airplanes: thousands crash daily   │
+  │    6σ = 99.99966% →  Industry standard for safety                    │
+  │                                                                      │
+  │  To calculate 0.00034% risk, you NEED the base formula.              │
+  │  The "Rule of Thumb" shortcut cannot handle this.                    │
+  │                                                                      │
+  ├──────────────────────────────────────────────────────────────────────┤
+  │                                                                      │
+  │  APPLICATION B: COMPUTERS                                            │
+  │  ────────────────────────                                            │
+  │                                                                      │
+  │  When Excel / Python / engineering software calculates a             │
+  │  probability, it does NOT look up a "rule of thumb."                 │
+  │  It uses the base formula e^(-x²) to compute the integral.           │
+  │                                                                      │
+  ├──────────────────────────────────────────────────────────────────────┤
+  │                                                                      │
+  │  APPLICATION C: DEMOGRAPHICS (Human Heights)                         │
+  │  ───────────────────────────────────────────                         │
+  │                                                                      │
+  │  A person's height = SUM of thousands of tiny genetic and            │
+  │  environmental factors. Because it is a sum of many small            │
+  │  random things → CLT applies → heights form a Bell Curve.            │
+  │                                                                      │
+  ├──────────────────────────────────────────────────────────────────────┤
+  │                                                                      │
+  │  APPLICATION D: FRAUD / QUALITY DETECTION                            │
+  │  ────────────────────────────────────────                            │
+  │                                                                      │
+  │  Claim: "This die is fair."                                          │
+  │  Test:  Roll it 100 times, sum the results.                          │
+  │                                                                      │
+  │  Expected (fair): Sum between 316 and 384 (95% confidence)           │
+  │  Observed:        Sum = 200                                          │
+  │                                                                      │
+  │  Verdict: RIGGED. A result of 200 is mathematically impossible       │
+  │           for a fair die.                                            │
+  │                                                                      │
+  └──────────────────────────────────────────────────────────────────────┘
+```
+
+### Shortcut vs. Formula — When to Use What
+
+```
+  ┌────────────────────────────┬──────────────────────────────────────┐
+  │  THE SHORTCUT              │  THE FORMULA                         │
+  │  (Mean ± 2σ)               │  (e^(-x²) integral)                  │
+  ├────────────────────────────┼──────────────────────────────────────┤
+  │  Quick estimates           │  Precision calculations              │
+  │  Human intuition           │  Computer computations               │
+  │  Integer σ only            │  Any σ value (1.5, 4.2, etc.)        │
+  │                            │                                      │
+  │  Use for:                  │  Use for:                            │
+  │  • Checking a die roll     │  • Building bridges                  │
+  │  • Rough predictions       │  • Predicting stock crash risk       │
+  │  • Mental math             │  • Six Sigma manufacturing           │
+  └────────────────────────────┴──────────────────────────────────────┘
+```
 
 ---
 
-## CLT Quick Reference
+## [14] CLT Quick Reference Card
 
 ### The Formula Chain
 
 ```
-Single Item Stats (μ, σ)
-        ↓
-    × n (Mean)  and  × √n (Standard Deviation)
-        ↓
-Bell Curve Parameters
-        ↓
-    Rule of Thumb (68-95-99.7)  OR  Integral (exact)
-        ↓
-Probability Prediction
+  ┌─────────────────────────┐
+  │  Single Item Stats      │
+  │    μ (mean)             │
+  │    σ (std dev)          │
+  └────────────┬────────────┘
+               │
+               ▼
+  ┌─────────────────────────┐
+  │  Scale Up (n items)     │
+  │    New μ  = n × μ       │
+  │    New σ  = √n × σ      │
+  └────────────┬────────────┘
+               │
+               ▼
+  ┌─────────────────────────┐
+  │  Bell Curve Parameters  │
+  │    Center = New μ       │
+  │    Width  = New σ       │
+  └────────────┬────────────┘
+               │
+          ┌────┴────┐
+          ▼         ▼
+  ┌──────────┐  ┌──────────┐
+  │ SHORTCUT │  │  EXACT   │
+  │ 68-95-   │  │ Integral │
+  │ 99.7     │  │ of f(x)  │
+  │ Rule     │  │          │
+  └────┬─────┘  └────┬─────┘
+       │              │
+       └──────┬───────┘
+              ▼
+  ┌─────────────────────────┐
+  │  PROBABILITY PREDICTION │
+  │  "95% chance between    │
+  │   X and Y"              │
+  └─────────────────────────┘
 ```
 
-### Key Rules
+### Key Rules at a Glance
 
-| Rule | Formula | Meaning |
-|------|---------|---------|
-| New Mean | n × μ_single | Center grows linearly |
-| New Std Dev | √n × σ_single | Spread grows slowly |
-| 95% Range | Mean ± 2σ | Quick prediction boundary |
+```
+  ╔═══════════════╦══════════════════════╦══════════════════════════╗
+  ║  Rule         ║  Formula             ║  Meaning                 ║
+  ╠═══════════════╬══════════════════════╬══════════════════════════╣
+  ║  New Mean     ║  n × μ_single        ║  Center grows linearly   ║
+  ║  New Std Dev  ║  √n × σ_single       ║  Spread grows slowly     ║
+  ║  95% Range    ║  Mean ± 2σ           ║  Quick prediction zone   ║
+  ╚═══════════════╩══════════════════════╩══════════════════════════╝
+```
 
 ### Three Assumptions Checklist
 
-- [ ] **Independent:** Events don't influence each other
-- [ ] **Identically Distributed:** Same random process each time
-- [ ] **Finite Variance:** Spread is not infinite
+```
+  [✓] INDEPENDENT ............. Events don't influence each other
+  [✓] IDENTICALLY DISTRIBUTED . Same random process each time
+  [✓] FINITE VARIANCE ......... Spread is not infinite
+```
 
 ---
 
-### One-Liners to Remember
+### Memory Aids
 
-1. **CLT gives the Shape:** "The answer is always a Bell Curve."
-2. **Center is easy:** "Just multiply n × average."
-3. **Spread grows slowly:** "Multiply √n × standard deviation."
-4. **The Formula draws the picture:** "e^(-x²) is the instruction for drawing the curve."
-5. **π fixes the area:** "The basic lump has area √π; we divide by it so total = 1."
-6. **Density ≠ Probability:** "Height of the curve is density; area under it is probability."
-7. **Shape is universal:** "No matter what you start with, the sum becomes a Bell Curve."
+```
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║                                                                  ║
+  ║  1. CLT gives the SHAPE     "The answer is always a Bell Curve"  ║
+  ║  2. Center is EASY          "Just multiply n × average"          ║
+  ║  3. Spread grows SLOWLY     "Multiply √n × std dev"              ║
+  ║  4. Formula DRAWS the bell  "e^(-x²) is the drawing instruction" ║
+  ║  5. π FIXES the area        "Basic lump has area √π; divide it"  ║
+  ║  6. Density ≠ Probability   "Height = density; Area = prob"      ║
+  ║  7. Shape is UNIVERSAL      "All starting shapes wash away"      ║
+  ║                                                                  ║
+  ╚══════════════════════════════════════════════════════════════════╝
+```
+
+<details>
+<summary><b>Self-Test: Can You Answer These? (Click to expand)</b></summary>
+
+```
+  Q1: What does the CLT actually guarantee?
+      ───────────────────────────────────────
+      A: The SHAPE of the sum's distribution → always a Bell Curve.
+
+
+  Q2: You roll 100 fair dice. What range covers 95% of possible sums?
+      ────────────────────────────────────────────────────────────────
+      A: Mean = 350, σ = 17.1 → 95% range = 350 ± 34.2 = [315.8, 384.2]
+
+
+  Q3: Why does π appear in the Normal Distribution formula?
+      ──────────────────────────────────────────────────────
+      A: The basic bell function e^(-x²) has area √π.
+         We divide by it to make total area = 1 (100% probability).
+
+
+  Q4: What are the three assumptions for CLT?
+      ─────────────────────────────────────────
+      A: Independence, Identically Distributed, Finite Variance.
+
+
+  Q5: What is a "Probability Density Function"?
+      ──────────────────────────────────────────
+      A: A function where the y-axis shows DENSITY (not probability).
+         To get probability, calculate the AREA under a slice of the curve.
+
+
+  Q6: What happens if variance is infinite?
+      ──────────────────────────────────────
+      A: CLT breaks down. The sum does NOT converge to a Bell Curve.
+```
+
+</details>
 
 ---
 
