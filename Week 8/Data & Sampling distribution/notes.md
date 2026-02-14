@@ -451,31 +451,37 @@ A factory produces 10,000 iPhones a day.
 Occurs when participants must "survive" a waiting period to be classified as "Treated" — making the treatment look better than it is.
 
 **Core Concept:**
+
 - To be in the "Treatment" group, you had to survive long enough to receive treatment
 - Deaths during the waiting period go to "Control" by default
-- This creates a period where Treatment group has 0% death rate *by design*
+- This creates a period where Treatment group has 0% death rate _by design_
 
 **Healthcare Example (Heart Transplant):**
+
 - Bob waits 200 days on the list, gets a transplant, lives 5 more years
 - **Biased analysis**: "Bob, a transplant patient, survived 5 years and 200 days"
 - **The problem**: If Bob died on day 100, he'd be counted as "Control" — those 200 waiting days are "immortal time" where Treatment group can't have deaths
 
 **HR Example (Leadership Training):**
+
 - 1-year course; only graduates are "Treated"
 - Jane starts 2020, graduates 2021
 - **The bias**: Jane had to NOT QUIT for 1 year to be a graduate
 - **Result**: Graduate group has ~0% quit rate for year 1 by definition — you selected people already loyal enough to stay
 
 **COVID Vaccine Example:**
+
 - Patient joins study Day 1, gets vaccinated Day 30
 - **Wrong**: Count days 1-30 as "vaccinated survival time"
 - **Reality**: They were unvaccinated those 30 days. If they died Day 15, that's an unvaccinated death
 
 **The Fix — Time-Dependent Analysis:**
+
 ```
 Days 1–200:  Bob → Control Group (old heart)
 Day 201+:    Bob → Treatment Group (new heart)
 ```
+
 Credit waiting time to Control where it belongs.
 
 ---
@@ -485,10 +491,12 @@ Credit waiting time to Control where it belongs.
 People lie to look good → creates **Measurement Error**.
 
 **Example (Streaming Service):**
+
 - Survey: "Do you watch documentaries?" → Users say "Yes" (to look smart)
 - Actual data: They watch reality TV
 
 **Fixes:**
+
 - Use **behavioral data** (what they DO) over reported data (what they SAY)
 - Use **indirect questioning** for sensitive topics
 
@@ -503,6 +511,7 @@ How do you know if your study is biased? You can't prove it (you don't have the 
 **The Question:** "How wrong would my data have to be to change my decision?"
 
 **Example:**
+
 - Survey shows 60% like your product
 - But 20% didn't respond (Non-response)
 
@@ -513,6 +522,7 @@ How do you know if your study is biased? You can't prove it (you don't have the 
 | Worst Case | All 20% non-responders hate it | 48% approval |
 
 **Conclusion:**
+
 - If your decision stays the same in "Worst Case" → result is **robust**
 - If your decision changes → study is **sensitive to bias**
 
@@ -529,23 +539,24 @@ How do you know if your study is biased? You can't prove it (you don't have the 
 > A massive, biased sample is worse than a tiny, random one.
 
 **The Paradox:**
+
 - More biased data → smaller confidence intervals (less uncertainty)
 - BUT → magnifies the bias
 - **Result:** Very precise estimate of the WRONG answer
 
 **Historical Proof: Literary Digest vs. Gallup (1936)**
 
-| Survey | Sample Size | Method | Prediction |
-|--------|-------------|--------|------------|
-| Literary Digest | 2.3 million | Biased (phones/cars = wealthy) | Landon wins ❌ |
-| George Gallup | 50,000 | Random sampling | Roosevelt wins ✅ |
+| Survey          | Sample Size | Method                         | Prediction        |
+| --------------- | ----------- | ------------------------------ | ----------------- |
+| Literary Digest | 2.3 million | Biased (phones/cars = wealthy) | Landon wins ❌    |
+| George Gallup   | 50,000      | Random sampling                | Roosevelt wins ✅ |
 
 **Modern Proof: COVID Vaccine Uptake (2021)**
 
-| Survey | Sample Size | Result |
-|--------|-------------|--------|
-| Delphi-Facebook | 250,000 | Overestimated uptake by 17% ❌ |
-| Axios-Ipsos | 1,000 | Nearly correct ✅ |
+| Survey          | Sample Size | Result                         |
+| --------------- | ----------- | ------------------------------ |
+| Delphi-Facebook | 250,000     | Overestimated uptake by 17% ❌ |
+| Axios-Ipsos     | 1,000       | Nearly correct ✅              |
 
 The 250,000 biased responses = no better than a random sample of just 10 people.
 
@@ -560,10 +571,12 @@ The 250,000 biased responses = no better than a random sample of just 10 people.
 **Answer:** Yes, but only up to a point.
 
 **The Math:**
+
 - More data → smaller margin of error
 - BUT → you hit a wall of **diminishing returns**
 
 **The Sweet Spot:**
+
 - Political polling for entire USA: ~1,200 to 1,500 people is "enough"
 - Going from 1,500 → 2,000 costs thousands of dollars
 - Error reduction: only 2.53% → 2.19% (rarely worth it)
@@ -577,10 +590,11 @@ The 250,000 biased responses = no better than a random sample of just 10 people.
 If you're looking for something **rare**, small samples will miss it entirely.
 
 **Example (Google Search):**
-- Query: *"Ricky Ricardo and Little Red Riding Hood"*
+
+- Query: _"Ricky Ricardo and Little Red Riding Hood"_
 - 1 million searches might not contain this phrase once
 - Google needs **trillions** of data points to capture rare "long-tail" queries
-- Only then can they know: user wants a specific *I Love Lucy* episode
+- Only then can they know: user wants a specific _I Love Lucy_ episode
 
 **Rule:** For rare events (fraud detection, specific search queries), you need the whole population.
 
@@ -591,10 +605,12 @@ If you're looking for something **rare**, small samples will miss it entirely.
 If two things are very similar, you need massive data to prove the difference is real (not luck).
 
 **Example (A/B Testing Ads):**
+
 - Ad A: 1.1% click rate
 - Ad B: 1.2% click rate
 
 Is 1.2% > 1.1% real, or just noise?
+
 - With 1,000 views → looks identical
 - Need ~**120,000** impressions to prove Ad B is actually better
 
@@ -604,12 +620,12 @@ Is 1.2% > 1.1% real, or just noise?
 
 ### Size vs. Quality Checklist
 
-| Situation | What Matters |
-|-----------|--------------|
+| Situation                              | What Matters                             |
+| -------------------------------------- | ---------------------------------------- |
 | General averages ("% happy customers") | Quality > Size (~1,000 random is enough) |
-| Huge biased dataset | Useless — "confidently wrong" |
-| Rare events (fraud, specific queries) | Size matters — need Big Data |
-| Tiny differences (0.1% improvement) | Size matters — need massive sample |
+| Huge biased dataset                    | Useless — "confidently wrong"            |
+| Rare events (fraud, specific queries)  | Size matters — need Big Data             |
+| Tiny differences (0.1% improvement)    | Size matters — need massive sample       |
 
 > **Boss says:** "We have 10 million records, so the data must be right."
 > **You ask:** "It's big, but is it representative?"
@@ -624,7 +640,7 @@ Is 1.2% > 1.1% real, or just noise?
 
 **Margin of Error** = the "fuzzy zone" around your estimate due to random sampling error.
 
-Because you surveyed a *sample* (spoon) not the *population* (soup), your result won't be exactly the true value.
+Because you surveyed a _sample_ (spoon) not the _population_ (soup), your result won't be exactly the true value.
 
 > **Rule:** Smaller margin of error → more confidence your sample reflects the population.
 
@@ -633,14 +649,17 @@ Because you surveyed a *sample* (spoon) not the *population* (soup), your result
 ### Industry Example: Product Launch
 
 **Scenario:** Survey 1,000 random customers about new soda.
+
 - **Result:** 52% prefer your soda
 - **Margin of Error:** ±3% (at 95% confidence)
 
 **How to communicate:**
+
 - ❌ "Exactly 52% of the world likes our soda"
 - ✅ "We're 95% confident the true percentage is between **49% and 55%**"
 
 **Why it matters:**
+
 - If margin were ±5% → range is 47% to 57%
 - 47% is less than half → can't claim "most people" like it
 - Margin of error determines if you have a "winner" or just noise
@@ -654,6 +673,7 @@ Because you surveyed a *sample* (spoon) not the *population* (soup), your result
 **Inverse relationship:** Bigger sample → smaller margin
 
 **The Catch — Diminishing Returns:**
+
 - To cut margin in half → need to **quadruple** sample size (Square Root Rule)
 - Going from 1,500 → 2,000 people: costs thousands, reduces margin only 2.53% → 2.19%
 - Often not worth the extra cost
@@ -664,10 +684,10 @@ Because you surveyed a *sample* (spoon) not the *population* (soup), your result
 
 How diverse are opinions in the population?
 
-| Variability | Meaning | Effect on Margin |
-|-------------|---------|------------------|
+| Variability        | Meaning         | Effect on Margin     |
+| ------------------ | --------------- | -------------------- |
 | High (50/50 split) | Data is "noisy" | Larger margin needed |
-| Low (99% agree) | Data is "clean" | Smaller margin |
+| Low (99% agree)    | Data is "clean" | Smaller margin       |
 
 > **Planning tip:** When variability is unknown, assume worst-case (50/50) to be safe.
 
@@ -677,11 +697,11 @@ How diverse are opinions in the population?
 
 How "sure" do you want to be?
 
-| Confidence Level | Meaning | Effect on Margin |
-|------------------|---------|------------------|
-| 95% (standard) | If you ran survey 100 times, result falls in range 95 times | Normal width |
-| 99% (super sure) | More certainty needed | Margin gets **wider** |
-| 90% (less sure) | Accept more risk | Margin gets **narrower** |
+| Confidence Level | Meaning                                                     | Effect on Margin         |
+| ---------------- | ----------------------------------------------------------- | ------------------------ |
+| 95% (standard)   | If you ran survey 100 times, result falls in range 95 times | Normal width             |
+| 99% (super sure) | More certainty needed                                       | Margin gets **wider**    |
+| 90% (less sure)  | Accept more risk                                            | Margin gets **narrower** |
 
 > **Warning:** A "narrow" margin achieved by lowering confidence to 90% is a trick — not real precision.
 
@@ -695,10 +715,12 @@ How "sure" do you want to be?
 - **Useless for decisions**
 
 **Example (Poll):** Candidate has 51% of vote
+
 - ±2% margin → 49% to 53% (tight race, likely leading)
 - ±10% margin → 41% to 61% (tells you nothing)
 
 **Analogy (Weather):**
+
 - "70°F ± 2°" → Useful
 - "70°F ± 40°" → Useless (could be freezing or boiling)
 
@@ -720,13 +742,14 @@ How "sure" do you want to be?
 
 It assumes a perfectly random sample. It does **NOT** fix:
 
-| Bias Type | Example |
-|-----------|---------|
+| Bias Type         | Example                             |
+| ----------------- | ----------------------------------- |
 | Non-Response Bias | Unhappy customers refused to answer |
-| Measurement Error | Question was worded poorly |
-| Sampling Bias | Only surveyed people with landlines |
+| Measurement Error | Question was worded poorly          |
+| Sampling Bias     | Only surveyed people with landlines |
 
 **The Trap:**
+
 - Literary Digest had 2.3 million responses → tiny margin of error
 - But sample was biased → completely wrong prediction
 
@@ -739,21 +762,21 @@ It assumes a perfectly random sample. It does **NOT** fix:
 
 ## Chapter Summary Checklist
 
-| Concept | Key Point |
-|---------|-----------|
-| Population vs. Sample | Soup vs. spoon |
-| Random Sampling | Gold standard to remove bias |
-| Stratified Sampling | Force groups to be represented (Fairness) |
-| Cluster Sampling | Pick whole groups to save money (Efficiency) |
-| Systematic Sampling | Pick every n-th item (Speed) |
-| Selection Bias | Cherry-picking data |
-| Survivorship Bias | Only analyzing "survivors" |
-| Immortal Time Bias | Treatment group must survive to be classified |
-| Social Desirability Bias | People lie to look good |
-| Sensitivity Analysis | Stress test your conclusions with "what if" scenarios |
-| Size vs. Quality | Quality (representativeness) beats size; size matters for rare events & tiny differences |
-| Margin of Error | The ± zone around your estimate; only measures random error, not bias |
-| FPC | Correction for sampling large portion of finite population |
+| Concept                  | Key Point                                                                                |
+| ------------------------ | ---------------------------------------------------------------------------------------- |
+| Population vs. Sample    | Soup vs. spoon                                                                           |
+| Random Sampling          | Gold standard to remove bias                                                             |
+| Stratified Sampling      | Force groups to be represented (Fairness)                                                |
+| Cluster Sampling         | Pick whole groups to save money (Efficiency)                                             |
+| Systematic Sampling      | Pick every n-th item (Speed)                                                             |
+| Selection Bias           | Cherry-picking data                                                                      |
+| Survivorship Bias        | Only analyzing "survivors"                                                               |
+| Immortal Time Bias       | Treatment group must survive to be classified                                            |
+| Social Desirability Bias | People lie to look good                                                                  |
+| Sensitivity Analysis     | Stress test your conclusions with "what if" scenarios                                    |
+| Size vs. Quality         | Quality (representativeness) beats size; size matters for rare events & tiny differences |
+| Margin of Error          | The ± zone around your estimate; only measures random error, not bias                    |
+| FPC                      | Correction for sampling large portion of finite population                               |
 
 ---
 
@@ -769,15 +792,17 @@ It assumes a perfectly random sample. It does **NOT** fix:
 
 **Example: Two Classrooms**
 
-| Classroom | Opinion Split | Sample 10 Students | Result |
-|-----------|---------------|-------------------|--------|
-| A (Low Variance) | 95 love pizza, 5 hate | Almost always 9-10 say "love" | Samples consistent → small margin |
-| B (High Variance) | 50 love, 50 hate | Could be 6-4, then 4-6 | Samples inconsistent → wide margin |
+| Classroom         | Opinion Split         | Sample 10 Students            | Result                             |
+| ----------------- | --------------------- | ----------------------------- | ---------------------------------- |
+| A (Low Variance)  | 95 love pizza, 5 hate | Almost always 9-10 say "love" | Samples consistent → small margin  |
+| B (High Variance) | 50 love, 50 hate      | Could be 6-4, then 4-6        | Samples inconsistent → wide margin |
 
 **The Math:**
+
 ```
 Margin of Error ∝ σ / √n
 ```
+
 - High σ (spread out) → larger margin
 - Low σ (everyone agrees) → smaller margin
 
@@ -791,24 +816,25 @@ Margin of Error ∝ σ / √n
 
 **Example: Guessing Someone's Age (True age: 30)**
 
-| Confidence | Your Guess | Correct? |
-|------------|------------|----------|
-| 90% | "Between 28-32" | Narrow, but 10% chance wrong |
-| 95% | "Between 26-34" | Wider, safer |
-| 99% | "Between 22-38" | Very wide, almost guaranteed |
+| Confidence | Your Guess      | Correct?                     |
+| ---------- | --------------- | ---------------------------- |
+| 90%        | "Between 28-32" | Narrow, but 10% chance wrong |
+| 95%        | "Between 26-34" | Wider, safer                 |
+| 99%        | "Between 22-38" | Very wide, almost guaranteed |
 
 **The Fish Net Analogy:**
+
 - Small net (90%) → catch fish 90/100 times
 - Medium net (95%) → catch fish 95/100 times
 - Huge net (99%) → catch fish 99/100 times
 
 **Z-Scores by Confidence Level:**
 
-| Confidence | z-score | Effect |
-|------------|---------|--------|
-| 90% | 1.645 | Narrower margin |
-| 95% | 1.96 | Standard |
-| 99% | 2.576 | Wider margin |
+| Confidence | z-score | Effect          |
+| ---------- | ------- | --------------- |
+| 90%        | 1.645   | Narrower margin |
+| 95%        | 1.96    | Standard        |
+| 99%        | 2.576   | Wider margin    |
 
 ---
 
@@ -816,10 +842,10 @@ Margin of Error ∝ σ / √n
 
 > **Wider range = higher chance of being correct, but less useful information.**
 
-| Want More Confidence? | Trade-off |
-|-----------------------|-----------|
-| YES (99%) | Must accept **wider** margin (less precise) |
-| NO (90%) | Can have **narrower** margin (more precise, but riskier) |
+| Want More Confidence? | Trade-off                                                |
+| --------------------- | -------------------------------------------------------- |
+| YES (99%)             | Must accept **wider** margin (less precise)              |
+| NO (90%)              | Can have **narrower** margin (more precise, but riskier) |
 
 **Goal:** Find the sweet spot — narrow enough to be useful, wide enough to be confident.
 
@@ -827,13 +853,14 @@ Margin of Error ∝ σ / √n
 
 ### Margin of Error vs. Confidence Interval
 
-| Term | What It Means |
-|------|---------------|
-| **Margin of Error** | How far off your estimate might be (the ±) |
-| **Confidence Interval** | The actual range (estimate ± margin) |
-| **Confidence Level** | How sure you are the true value is in that range |
+| Term                    | What It Means                                    |
+| ----------------------- | ------------------------------------------------ |
+| **Margin of Error**     | How far off your estimate might be (the ±)       |
+| **Confidence Interval** | The actual range (estimate ± margin)             |
+| **Confidence Level**    | How sure you are the true value is in that range |
 
 **Example:**
+
 ```
 "We're 95% confident the true value is 52% ± 3% (between 49% and 55%)"
 
@@ -864,6 +891,7 @@ Confidence Interval
 ```
 
 **Formula:**
+
 ```
 MOE = z × (σ / √n)
 ```
@@ -875,11 +903,13 @@ MOE = z × (σ / √n)
 **Scenario:** Tech company surveys 1,000 customers about new feature. 520 (52%) say "Yes."
 
 **Formula for Proportions:**
+
 ```
 MOE = z × √[p(1-p) / n]
 ```
 
 **Step-by-Step (95% Confidence):**
+
 ```
 p = 0.52, (1-p) = 0.48, n = 1000, z = 1.96
 
@@ -893,10 +923,10 @@ MOE = ±3.1%
 
 **Result:**
 
-| Metric | Value |
-|--------|-------|
-| Sample proportion | 52% |
-| Margin of error | ±3.1% |
+| Metric                      | Value              |
+| --------------------------- | ------------------ |
+| Sample proportion           | 52%                |
+| Margin of error             | ±3.1%              |
 | **95% Confidence Interval** | **48.9% to 55.1%** |
 
 **Interpretation:** Can't claim "majority" because range crosses 50%.
@@ -912,6 +942,7 @@ MOE = ±3.1%
 Standard formula assumes **infinite population**. But if you sample a big chunk of a small population, you're more certain than the formula suggests.
 
 **Extreme Example:**
+
 - Population: 100 employees
 - Sample: 100 (everyone!)
 - Uncertainty should be **zero** — but standard formula gives MOE > 0
@@ -923,16 +954,19 @@ Standard formula assumes **infinite population**. But if you sample a big chunk 
 ### The Formula
 
 **Without FPC:**
+
 ```
 MOE = z × (σ / √n)
 ```
 
 **With FPC:**
+
 ```
 MOE = z × (σ / √n) × √[(N - n) / (N - 1)]
 ```
 
 Where:
+
 - **N** = population size
 - **n** = sample size
 - **√[(N - n) / (N - 1)]** = FPC factor
@@ -941,11 +975,11 @@ Where:
 
 ### How FPC Behaves
 
-| Scenario | FPC Value | Effect |
-|----------|-----------|--------|
-| n is tiny vs N | FPC ≈ 1 | No change |
-| n = N (census) | FPC = 0 | Margin = 0 |
-| n is large % of N | FPC < 1 | Margin shrinks |
+| Scenario          | FPC Value | Effect         |
+| ----------------- | --------- | -------------- |
+| n is tiny vs N    | FPC ≈ 1   | No change      |
+| n = N (census)    | FPC = 0   | Margin = 0     |
+| n is large % of N | FPC < 1   | Margin shrinks |
 
 ---
 
@@ -959,6 +993,7 @@ Is your sample MORE than 5% of the population?
 ```
 
 **Decision Flowchart:**
+
 ```
 Do you KNOW the population size (N)?
 │
@@ -975,13 +1010,13 @@ Do you KNOW the population size (N)?
 
 ### Quick Reference
 
-| Scenario | N | n | n/N | FPC? |
-|----------|---|---|-----|------|
-| National poll | 300M | 1,000 | 0.0003% | ❌ |
-| Tech customers | Unknown | 1,000 | Tiny | ❌ |
-| Company employees | 5,000 | 1,000 | 20% | ✅ |
-| School students | 800 | 200 | 25% | ✅ |
-| Club members | 100 | 100 | 100% | ✅ (census) |
+| Scenario          | N       | n     | n/N     | FPC?        |
+| ----------------- | ------- | ----- | ------- | ----------- |
+| National poll     | 300M    | 1,000 | 0.0003% | ❌          |
+| Tech customers    | Unknown | 1,000 | Tiny    | ❌          |
+| Company employees | 5,000   | 1,000 | 20%     | ✅          |
+| School students   | 800     | 200   | 25%     | ✅          |
+| Club members      | 100     | 100   | 100%    | ✅ (census) |
 
 ---
 
@@ -996,10 +1031,10 @@ FPC = √[(5000 - 1000) / (5000 - 1)]
     = 0.894
 ```
 
-| Method | Margin of Error |
-|--------|-----------------|
-| Without FPC | ±3.1% |
-| With FPC | ±3.1% × 0.894 = **±2.77%** |
+| Method      | Margin of Error            |
+| ----------- | -------------------------- |
+| Without FPC | ±3.1%                      |
+| With FPC    | ±3.1% × 0.894 = **±2.77%** |
 
 Smaller margin because you sampled 20% of everyone!
 
@@ -1011,12 +1046,14 @@ Smaller margin because you sampled 20% of everyone!
 **Result:** 320 out of 400 (80%) say satisfied.
 
 **Step 1: Check if FPC Needed**
+
 ```
 Sample fraction = n / N = 400 / 2000 = 20%
 20% > 5% → ✅ Use FPC
 ```
 
 **Step 2: Calculate WITHOUT FPC**
+
 ```
 MOE = z × √[p(1-p) / n]
     = 1.96 × √[0.80 × 0.20 / 400]
@@ -1027,6 +1064,7 @@ MOE = z × √[p(1-p) / n]
 ```
 
 **Step 3: Calculate FPC Factor**
+
 ```
 FPC = √[(N - n) / (N - 1)]
     = √[(2000 - 400) / (2000 - 1)]
@@ -1036,16 +1074,17 @@ FPC = √[(N - n) / (N - 1)]
 ```
 
 **Step 4: Apply FPC**
+
 ```
 MOE with FPC = 3.92% × 0.895 = ±3.51%
 ```
 
 **Comparison:**
 
-| Method | Margin of Error | 95% Confidence Interval |
-|--------|-----------------|-------------------------|
-| Without FPC | ±3.92% | 76.08% to 83.92% |
-| **With FPC** | **±3.51%** | **76.49% to 83.51%** |
+| Method       | Margin of Error | 95% Confidence Interval |
+| ------------ | --------------- | ----------------------- |
+| Without FPC  | ±3.92%          | 76.08% to 83.92%        |
+| **With FPC** | **±3.51%**      | **76.49% to 83.51%**    |
 
 **Why the difference?** You surveyed 20% of all employees — FPC gives you credit for that extra certainty.
 
@@ -1056,12 +1095,14 @@ MOE with FPC = 3.92% × 0.895 = ±3.51%
 ### Clues in Problems
 
 **DON'T use FPC when:**
+
 - "Survey of Americans..."
 - "Tech company customers..."
 - No specific population size mentioned
 - Population is clearly huge
 
 **DO use FPC when:**
+
 - "Company has 2,000 employees, you survey 500..."
 - "School has 600 students, you sample 150..."
 - **Specific, small population number is given**
@@ -1070,12 +1111,12 @@ MOE with FPC = 3.92% × 0.895 = ±3.51%
 
 ### Why 5% Threshold?
 
-| n/N | FPC Factor | Effect on MOE |
-|-----|------------|---------------|
-| 1% | 0.995 | Reduces by 0.5% (ignore) |
-| 5% | 0.975 | Reduces by 2.5% (borderline) |
-| 20% | 0.894 | Reduces by 10.6% (significant!) |
-| 50% | 0.707 | Reduces by 29.3% (big deal!) |
+| n/N | FPC Factor | Effect on MOE                   |
+| --- | ---------- | ------------------------------- |
+| 1%  | 0.995      | Reduces by 0.5% (ignore)        |
+| 5%  | 0.975      | Reduces by 2.5% (borderline)    |
+| 20% | 0.894      | Reduces by 10.6% (significant!) |
+| 50% | 0.707      | Reduces by 29.3% (big deal!)    |
 
 Below 5% → not worth the extra calculation.
 
@@ -1083,12 +1124,12 @@ Below 5% → not worth the extra calculation.
 
 ### Three Levers to Shrink Margin of Error
 
-| Lever | Action | Trade-off |
-|-------|--------|-----------|
-| ↑ Sample size (n) | Collect more data | Costs $$$ |
-| ↓ Variance (σ) | Can't control | It's the population's nature |
-| ↓ Confidence level | Accept more risk | Might be wrong more often |
-| ↑ Sample fraction (use FPC) | Sample more of finite population | Only works for small N |
+| Lever                       | Action                           | Trade-off                    |
+| --------------------------- | -------------------------------- | ---------------------------- |
+| ↑ Sample size (n)           | Collect more data                | Costs $$$                    |
+| ↓ Variance (σ)              | Can't control                    | It's the population's nature |
+| ↓ Confidence level          | Accept more risk                 | Might be wrong more often    |
+| ↑ Sample fraction (use FPC) | Sample more of finite population | Only works for small N       |
 
 ---
 
@@ -1098,10 +1139,10 @@ Below 5% → not worth the extra calculation.
 
 > ⚠️ **Critical Distinction:** "Regression" means two completely different things in statistics!
 
-| Term | What It Is | Purpose |
-|------|------------|---------|
-| **Linear Regression** | A **tool/method** | Predict values using a formula |
-| **Regression to the Mean** | A **phenomenon** | Extreme values return to average |
+| Term                       | What It Is        | Purpose                          |
+| -------------------------- | ----------------- | -------------------------------- |
+| **Linear Regression**      | A **tool/method** | Predict values using a formula   |
+| **Regression to the Mean** | A **phenomenon**  | Extreme values return to average |
 
 ---
 
@@ -1111,10 +1152,10 @@ Below 5% → not worth the extra calculation.
 
 A statistical method to model the relationship between variables.
 
-**Question it answers:** *"If I change X, how much does Y change?"*
+**Question it answers:** _"If I change X, how much does Y change?"_
 
-- **Correlation** tells you *how strongly* two things are related
-- **Regression** gives you a *formula* to predict specific values
+- **Correlation** tells you _how strongly_ two things are related
+- **Regression** gives you a _formula_ to predict specific values
 
 ---
 
@@ -1122,12 +1163,12 @@ A statistical method to model the relationship between variables.
 
 $$Y = b_0 + b_1X$$
 
-| Symbol | Name | Meaning |
-|--------|------|---------|
-| Y | Response | Value you want to predict (e.g., House Price) |
-| X | Predictor | Input you have (e.g., Square Footage) |
-| $b_0$ | Intercept | Where the line starts |
-| $b_1$ | Slope | How much Y changes per 1 unit of X |
+| Symbol | Name      | Meaning                                       |
+| ------ | --------- | --------------------------------------------- |
+| Y      | Response  | Value you want to predict (e.g., House Price) |
+| X      | Predictor | Input you have (e.g., Square Footage)         |
+| $b_0$  | Intercept | Where the line starts                         |
+| $b_1$  | Slope     | How much Y changes per 1 unit of X            |
 
 ---
 
@@ -1157,9 +1198,9 @@ Best Fit Line:  ----•----
 
 ### Why Data Scientists Use It
 
-| Purpose | Example |
-|---------|---------|
-| **Prediction** | Forecast values for new data |
+| Purpose         | Example                          |
+| --------------- | -------------------------------- |
+| **Prediction**  | Forecast values for new data     |
 | **Explanation** | Which variables actually matter? |
 
 > Does adding a bedroom increase price, or is it just because bigger houses have more bedrooms? Regression can separate these effects.
@@ -1173,6 +1214,7 @@ Because it minimizes **squared** errors, extreme values have disproportionate in
 **Example:** Removing a few influential data points changed "Bathrooms" coefficient from **+$2,282** to **-$16,132** (sign flip!)
 
 **How to check:**
+
 - Run regression WITH and WITHOUT outliers
 - If results stay similar → **robust**
 - If results flip → **sensitive/fragile**
@@ -1195,11 +1237,11 @@ $$Outcome = Skill + Luck$$
 
 ### The Mechanism
 
-| Event | What Happened |
-|-------|---------------|
-| **Extreme success** | High skill + extraordinary luck |
-| **Next attempt** | Same skill + average luck (luck is random) |
-| **Result** | Performance drops back to average |
+| Event               | What Happened                              |
+| ------------------- | ------------------------------------------ |
+| **Extreme success** | High skill + extraordinary luck            |
+| **Next attempt**    | Same skill + average luck (luck is random) |
+| **Result**          | Performance drops back to average          |
 
 > The luck doesn't last → performance "regresses" to the mean.
 
@@ -1208,15 +1250,18 @@ $$Outcome = Skill + Luck$$
 ### Examples
 
 **The "Sophomore Slump" (Sports):**
+
 - Rookie of the Year performs worse in year 2
 - Fans say: "He got arrogant" or "Teams figured him out"
 - **Reality:** Year 1 = talent + great luck (no injuries, bounces went his way). Year 2 = luck returned to normal.
 
 **Sports Illustrated "Jinx":**
+
 - Athletes on the cover often perform poorly afterward
 - **Reality:** You only make the cover at peak performance (outlier). Peaks are followed by returns to average.
 
 **Golf Scores:**
+
 - Great Day 1 → predict worse Day 2
 - Terrible Day 1 → predict better Day 2
 - Variance averages out over time
@@ -1228,6 +1273,7 @@ $$Outcome = Skill + Luck$$
 Our brain wants to find **causes** for what's actually **random fluctuation**.
 
 **Business Example:**
+
 1. Store has terrible sales month (bad luck/outlier)
 2. Manager implements strict dress code
 3. Next month, sales recover (regression to mean)
@@ -1247,17 +1293,17 @@ Our brain wants to find **causes** for what's actually **random fluctuation**.
 
 Tests **how fragile** your results are by changing assumptions to see if conclusions hold up.
 
-| Regression | Sensitivity Analysis |
-|------------|---------------------|
-| Builds the formula | Checks if you should trust it |
+| Regression                     | Sensitivity Analysis                   |
+| ------------------------------ | -------------------------------------- |
+| Builds the formula             | Checks if you should trust it          |
 | The GPS calculating your route | Checking if route changes with traffic |
-| The answer | The reliability of that answer |
+| The answer                     | The reliability of that answer         |
 
 ---
 
 ### The Key Question
 
-> *"If my data is biased, or if I change my assumptions, does my conclusion completely fall apart?"*
+> _"If my data is biased, or if I change my assumptions, does my conclusion completely fall apart?"_
 
 ---
 
@@ -1269,9 +1315,9 @@ Tests **how fragile** your results are by changing assumptions to see if conclus
 
 **Sensitivity Test:** Remove the giant mansion and re-run
 
-| Result | Interpretation |
-|--------|----------------|
-| Still ~$20,000 | **Robust** — finding is real |
+| Result          | Interpretation                        |
+| --------------- | ------------------------------------- |
+| Still ~$20,000  | **Robust** — finding is real          |
 | Drops to $5,000 | **Sensitive** — driven by one outlier |
 
 ---
@@ -1282,9 +1328,9 @@ Tests **how fragile** your results are by changing assumptions to see if conclus
 
 **Sensitivity Test:** What if it's curved? Add $Age^2$ term
 
-| Result | Interpretation |
-|--------|----------------|
-| Model barely changes | Linear assumption was OK |
+| Result                       | Interpretation                            |
+| ---------------------------- | ----------------------------------------- |
+| Model barely changes         | Linear assumption was OK                  |
 | Model improves significantly | Linear was wrong — relationship is curved |
 
 ---
@@ -1301,22 +1347,22 @@ Tests **how fragile** your results are by changing assumptions to see if conclus
 
 ### Summary: Regression vs. Sensitivity Analysis
 
-| Feature | Regression | Sensitivity Analysis |
-|---------|------------|---------------------|
-| **Job** | Model the data | Test the model |
-| **Input** | Raw data | "What if" scenarios |
-| **Output** | Coefficients & predictions | Robustness assessment |
-| **Analogy** | Building a house | Safety inspector checking if it survives a storm |
+| Feature     | Regression                 | Sensitivity Analysis                             |
+| ----------- | -------------------------- | ------------------------------------------------ |
+| **Job**     | Model the data             | Test the model                                   |
+| **Input**   | Raw data                   | "What if" scenarios                              |
+| **Output**  | Coefficients & predictions | Robustness assessment                            |
+| **Analogy** | Building a house           | Safety inspector checking if it survives a storm |
 
 ---
 
 ### Quick Comparison: All Three "R" Concepts
 
-| Concept | Type | What It Does |
-|---------|------|--------------|
-| **Linear Regression** | Tool | Draws best-fit line to predict Y from X |
-| **Regression to the Mean** | Phenomenon | Extreme values return to average over time |
-| **Sensitivity Analysis** | Quality Check | Tests if regression results are trustworthy |
+| Concept                    | Type          | What It Does                                |
+| -------------------------- | ------------- | ------------------------------------------- |
+| **Linear Regression**      | Tool          | Draws best-fit line to predict Y from X     |
+| **Regression to the Mean** | Phenomenon    | Extreme values return to average over time  |
+| **Sensitivity Analysis**   | Quality Check | Tests if regression results are trustworthy |
 
 ---
 
@@ -1325,111 +1371,122 @@ Tests **how fragile** your results are by changing assumptions to see if conclus
 # 📋 Chapter Summary: Table of Contents
 
 ## Part 1: Core Foundations
-| Topic | Key Concept |
-|-------|-------------|
-| Population vs. Sample | Soup (whole) vs. Spoon (subset) |
-| Sampling Frame | The actual list you draw from |
-| Random Sampling | Gold standard — equal chance for everyone |
-| Selection Bias | Cherry-picking data |
-| Regression to the Mean | Extreme values return to average |
+
+| Topic                  | Key Concept                               |
+| ---------------------- | ----------------------------------------- |
+| Population vs. Sample  | Soup (whole) vs. Spoon (subset)           |
+| Sampling Frame         | The actual list you draw from             |
+| Random Sampling        | Gold standard — equal chance for everyone |
+| Selection Bias         | Cherry-picking data                       |
+| Regression to the Mean | Extreme values return to average          |
 
 ## Part 2: Sampling Distributions & Inference
-| Topic | Key Concept |
-|-------|-------------|
-| Data vs. Sampling Distribution | Individuals are messy; averages are predictable |
-| Central Limit Theorem (CLT) | Sample means → normal distribution |
+
+| Topic                                 | Key Concept                                             |
+| ------------------------------------- | ------------------------------------------------------- |
+| Data vs. Sampling Distribution        | Individuals are messy; averages are predictable         |
+| Central Limit Theorem (CLT)           | Sample means → normal distribution                      |
 | Standard Deviation vs. Standard Error | SD = spread of individuals; SE = spread of sample means |
-| Bootstrap Method | Resample with replacement to estimate SE |
-| Confidence Intervals | Estimate ± Margin of Error |
+| Bootstrap Method                      | Resample with replacement to estimate SE                |
+| Confidence Intervals                  | Estimate ± Margin of Error                              |
 
 ## Part 3: Sampling Techniques
-| Technique | When to Use |
-|-----------|-------------|
+
+| Technique     | When to Use                          |
+| ------------- | ------------------------------------ |
 | Simple Random | Have complete list, small population |
-| Stratified | Need minority group representation |
-| Cluster | Population spread out, save money |
-| Systematic | Assembly lines, pick every k-th item |
+| Stratified    | Need minority group representation   |
+| Cluster       | Population spread out, save money    |
+| Systematic    | Assembly lines, pick every k-th item |
 
 ## Part 4: Types of Bias
-| Bias | What Happens |
-|------|--------------|
-| Undercoverage | Frame excludes groups |
-| Self-Selection | Only motivated people respond |
-| Survivorship | Only analyze "survivors" |
-| Immortal Time | Treatment group must survive to be classified |
-| Social Desirability | People lie to look good |
+
+| Bias                | What Happens                                  |
+| ------------------- | --------------------------------------------- |
+| Undercoverage       | Frame excludes groups                         |
+| Self-Selection      | Only motivated people respond                 |
+| Survivorship        | Only analyze "survivors"                      |
+| Immortal Time       | Treatment group must survive to be classified |
+| Social Desirability | People lie to look good                       |
 
 ## Part 5: Advanced Concepts
-| Topic | Key Concept |
-|-------|-------------|
-| Sensitivity Analysis | Stress-test your conclusions |
-| Size vs. Quality | Quality (representativeness) beats size |
-| Big Data Paradox | Large biased sample = confidently wrong |
+
+| Topic                | Key Concept                             |
+| -------------------- | --------------------------------------- |
+| Sensitivity Analysis | Stress-test your conclusions            |
+| Size vs. Quality     | Quality (representativeness) beats size |
+| Big Data Paradox     | Large biased sample = confidently wrong |
 
 ## Part 6: Margin of Error
-| Topic | Key Concept |
-|-------|-------------|
-| Margin of Error | The ± zone around your estimate |
-| Three Drivers | Sample size (n), Variance (σ), Confidence level (z) |
-| High Variance → | Larger margin needed |
-| Higher Confidence → | Wider margin needed |
-| FPC Factor | Correction when sample > 5% of population |
+
+| Topic               | Key Concept                                         |
+| ------------------- | --------------------------------------------------- |
+| Margin of Error     | The ± zone around your estimate                     |
+| Three Drivers       | Sample size (n), Variance (σ), Confidence level (z) |
+| High Variance →     | Larger margin needed                                |
+| Higher Confidence → | Wider margin needed                                 |
+| FPC Factor          | Correction when sample > 5% of population           |
 
 ## Part 7: Regression Concepts
-| Concept | Type | What It Does |
-|---------|------|--------------|
-| Linear Regression | Tool | Predict Y from X using best-fit line |
-| Regression to the Mean | Phenomenon | Luck fades → extreme values return to average |
-| Sensitivity Analysis | Quality Check | Tests if regression is robust or fragile |
+
+| Concept                | Type          | What It Does                                  |
+| ---------------------- | ------------- | --------------------------------------------- |
+| Linear Regression      | Tool          | Predict Y from X using best-fit line          |
+| Regression to the Mean | Phenomenon    | Luck fades → extreme values return to average |
+| Sensitivity Analysis   | Quality Check | Tests if regression is robust or fragile      |
 
 ## Part 8: CLT Deep Dive (3Blue1Brown)
-| Topic | Key Concept |
-|-------|-------------|
-| The Big Idea | Order emerges from chaos — sums always form a Bell Curve |
-| Galton Board & Dice | Physical and numerical demonstrations of CLT |
-| The Transformation | 1 die = flat, 2 dice = triangle, many dice = Bell Curve |
-| Mean & Std Dev Scaling | Center grows by n; spread grows by √n |
-| 100 Dice Example | Mean = 350, σ = 17.1, 95% range = 316-384 |
-| Three Assumptions | Independence, identically distributed, finite variance |
-| Formula Origin | e^(-x²) creates the lump; π fixes the area to 1 |
-| Term-by-Term Interpretation | Every symbol in the formula has a specific geometric job |
-| PDF vs. Probability | Height = density; area under curve = probability |
-| CLT Gives the Shape | The theorem's job: guarantee the universal Bell Curve shape |
-| Measuring Area | Rule of Thumb (68-95-99.7) vs. Integral (exact) |
-| Real-World Applications | Six Sigma, fraud detection, demographics, computers |
+
+| Topic                       | Key Concept                                                 |
+| --------------------------- | ----------------------------------------------------------- |
+| The Big Idea                | Order emerges from chaos — sums always form a Bell Curve    |
+| Galton Board & Dice         | Physical and numerical demonstrations of CLT                |
+| The Transformation          | 1 die = flat, 2 dice = triangle, many dice = Bell Curve     |
+| Mean & Std Dev Scaling      | Center grows by n; spread grows by √n                       |
+| 100 Dice Example            | Mean = 350, σ = 17.1, 95% range = 316-384                   |
+| Three Assumptions           | Independence, identically distributed, finite variance      |
+| Formula Origin              | e^(-x²) creates the lump; π fixes the area to 1             |
+| Term-by-Term Interpretation | Every symbol in the formula has a specific geometric job    |
+| PDF vs. Probability         | Height = density; area under curve = probability            |
+| CLT Gives the Shape         | The theorem's job: guarantee the universal Bell Curve shape |
+| Measuring Area              | Rule of Thumb (68-95-99.7) vs. Integral (exact)             |
+| Real-World Applications     | Six Sigma, fraud detection, demographics, computers         |
 
 ---
 
 ## 🔑 Key Formulas
 
-| Formula | Purpose |
-|---------|---------|
-| $SE = \frac{\sigma}{\sqrt{n}}$ | Standard Error |
-| $MOE = z \times SE$ | Margin of Error |
-| $MOE = z \times \sqrt{\frac{p(1-p)}{n}}$ | MOE for Proportions |
-| $FPC = \sqrt{\frac{N-n}{N-1}}$ | Finite Population Correction |
-| $Y = b_0 + b_1X$ | Linear Regression |
-| $f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$ | Normal Distribution (PDF) |
-| $\mu_{sum} = n \times \mu$ | CLT: Mean of Sum |
-| $\sigma_{sum} = \sqrt{n} \times \sigma$ | CLT: Std Dev of Sum |
+| Formula                                                                                  | Purpose                      |
+| ---------------------------------------------------------------------------------------- | ---------------------------- |
+| $SE = \frac{\sigma}{\sqrt{n}}$                                                           | Standard Error               |
+| $MOE = z \times SE$                                                                      | Margin of Error              |
+| $MOE = z \times \sqrt{\frac{p(1-p)}{n}}$                                                 | MOE for Proportions          |
+| $FPC = \sqrt{\frac{N-n}{N-1}}$                                                           | Finite Population Correction |
+| $Y = b_0 + b_1X$                                                                         | Linear Regression            |
+| $f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$ | Normal Distribution (PDF)    |
+| $\mu_{sum} = n \times \mu$                                                               | CLT: Mean of Sum             |
+| $\sigma_{sum} = \sqrt{n} \times \sigma$                                                  | CLT: Std Dev of Sum          |
 
 ---
 
 ## 🎯 Key Decision Rules
 
 **When to use FPC:**
+
 ```
 Sample > 5% of known population → Use FPC
 Otherwise → Skip it
 ```
 
 **Size vs. Quality:**
+
 ```
 Big biased sample → Useless (confidently wrong)
 Small random sample → Useful (actually representative)
 ```
 
 **Margin of Error Trade-offs:**
+
 ```
 Want narrower margin? → More data OR lower confidence OR less variance
 Want higher confidence? → Accept wider margin
@@ -1459,7 +1516,7 @@ Want higher confidence? → Accept wider margin
 
 # Deep Dive: The Central Limit Theorem (CLT)
 
-> *Based on the 3Blue1Brown visual explanation*
+> _Based on the 3Blue1Brown visual explanation_
 
 ```
 ╔══════════════════════════════════════════════════════════════════╗
@@ -1640,10 +1697,12 @@ Example: √100 × 1.71 = 10 × 1.71 = 17.1
 ```
 
 > **Critical Rule:**
+>
 > ```
 > Center grows by ........... n     (fast — linear)
 > Spread grows by ........... √n   (slow — square root)
 > ```
+>
 > This is why large sums become relatively more predictable.
 
 ---
@@ -2357,6 +2416,246 @@ For non-integer standard deviations (like 1.5σ or 4.2σ), use calculus or a com
 
 ---
 
-*Notes updated: February 7, 2026*
-*Topic: Central Limit Theorem — Deep Dive (3Blue1Brown)*
-*Week 8 - Data Science Journey*
+_Notes updated: February 7, 2026_
+_Topic: Central Limit Theorem — Deep Dive (3Blue1Brown)_
+_Week 8 - Data Science Journey_
+
+---
+
+---
+
+## Normal Distribution
+
+### 1. What Is the Normal Distribution? (The Bell Curve)
+
+When we collect data from the real world — heights, exam scores, blood pressure, product weights — and plot them, a beautiful pattern often emerges:
+
+- A **few** values are very small (extreme left)
+- A **few** values are very large (extreme right)
+- The **MAJORITY** of values cluster around the **middle**
+
+This creates a **bell-shaped curve** — tall in the middle, gently sloping down on both sides.
+
+**Story: Measuring Heights at a University Gate**
+Measure 1,000 students' heights. A few are very short (4'10"), a few are very tall (6'5"), but most are in the middle (5'5" to 5'9"). Plot them — you see a bell. That's the Normal Distribution.
+
+**Three Properties That Make It "Normal":**
+
+1. **Symmetric** — the left side is a mirror image of the right
+2. **Bell-shaped** — highest in the middle, tapering off on both ends
+3. **Mean = Median = Mode** — all three measures of center sit at the exact same point (the peak)
+
+---
+
+### 2. The Two Parameters: Mean (μ) and Standard Deviation (σ)
+
+A normal distribution is fully described by just **two numbers**:
+
+| Parameter              | Symbol    | What It Controls                      | Analogy                  |
+| ---------------------- | --------- | ------------------------------------- | ------------------------ |
+| **Mean**               | μ (mu)    | **Where** the bell sits (the center)  | The location of the peak |
+| **Standard Deviation** | σ (sigma) | **How wide** the bell is (the spread) | The width of the bell    |
+
+**Story: Two Universities, Same Average, Different Spread**
+
+- **University A** (local): Average height = 5'6", heights range from 5'1" to 5'11" → **Tall, narrow bell** 🔔 (small σ)
+- **University B** (international): Average height = 5'6", heights range from 4'10" to 6'5" → **Short, wide bell** 🫓 (large σ)
+
+Both have the **same μ** but **different σ** — that's what makes the bells look different.
+
+> **Key Takeaway**: Mean tells you WHERE the bell is. Standard Deviation tells you how FAT or SKINNY it is.
+
+---
+
+### 3. The 68-95-99.7 Rule (The Empirical Rule)
+
+This is the most powerful prediction tool of the normal distribution. If you know μ and σ, you can predict where almost all your data lives.
+
+| Range  | % of Data | Meaning                     |
+| ------ | --------- | --------------------------- |
+| μ ± 1σ | **68%**   | About **2 out of 3** values |
+| μ ± 2σ | **95%**   | Almost **everyone**         |
+| μ ± 3σ | **99.7%** | Virtually **all** data      |
+
+**Story: The Principal's Question**
+Average height = 5'6" (μ), Standard Deviation = 2 inches (σ).
+
+- 1σ away (5'4" to 5'8"): 68% of students are here — 2 out of every 3
+- 2σ away (5'2" to 5'10"): 95% of students — almost everyone
+- 3σ away (5'0" to 6'0"): 99.7% of students — practically all of them
+
+Anyone outside 3σ is a **super rare case** — only 0.3% of the data!
+
+> This rule works for **any** normal distribution — heights, exam scores, blood pressure, factory products — as long as the data is normally distributed.
+
+---
+
+### 4. Z-Score: The Universal Measuring Tape
+
+**The One Question Z-Score Answers:**
+
+> **_"How many standard deviations (steps) away am I from the mean... and am I above it (+) or below it (-)?"_**
+
+**Formula:**
+
+```
+Z = (X - μ) / σ
+```
+
+Where:
+
+- X = the value you're measuring
+- μ = the mean
+- σ = the standard deviation
+
+**Reading Z-Scores:**
+
+| Z-Score | Meaning                              |
+| ------- | ------------------------------------ |
+| Z = 0   | Exactly at the average               |
+| Z = +1  | One step ABOVE average               |
+| Z = -2  | Two steps BELOW average              |
+| Z = +3  | Extremely above average (very rare!) |
+
+**Story: Rahim vs. Karim — Who Did Better?**
+
+- Rahim scored **80** in Math (class average = 75, σ = 5) → Z = (80 - 75) / 5 = **1.0**
+- Karim scored **70** in Physics (class average = 50, σ = 10) → Z = (70 - 50) / 10 = **2.0**
+
+Karim wins! He's **2 steps** above average, while Rahim is only 1 step above. The Z-score is like a **currency exchange** — it converts different scales into one universal language: _"how many steps from the middle."_
+
+---
+
+### 5. General Normal vs. Standard Normal Distribution
+
+**They are NOT two different distributions. The Standard Normal is just the General Normal after a "costume change."**
+
+|          | **General Normal**                          | **Standard Normal**                 |
+| -------- | ------------------------------------------- | ----------------------------------- |
+| Mean     | Can be **anything** (66 in, 500g, 75 marks) | Always **0**                        |
+| Std Dev  | Can be **anything** (2 in, 10g, 5 marks)    | Always **1**                        |
+| Units    | Original units (inches, grams, marks)       | No units — just "steps from center" |
+| The data | **SAME**                                    | **SAME**                            |
+
+**Analogy:** General Normal = a person in everyday clothes. Standard Normal = the **same person** in a uniform. The person didn't change — just the outfit did.
+
+**Why standardize?**
+
+- So we only need **one probability table** (the Z-table) instead of infinite tables
+- So we can **compare** values from completely different datasets
+
+**Both give the same answer:**
+
+```
+General Normal: P(X < 70)  when μ=66, σ=2  → 0.9772
+Standard Normal: P(Z < 2.0)                → 0.9772  ← Same answer!
+```
+
+---
+
+### 6. Which One Should You Use?
+
+| Situation                                          | Use This                                              |
+| -------------------------------------------------- | ----------------------------------------------------- |
+| Working with Python/R (real-world data science)    | **General Normal** — software handles everything      |
+| Comparing values from different datasets           | **Standard Normal (Z-scores)** — universal translator |
+| Pen-and-paper exams using Z-tables                 | **Standard Normal** — convert to Z first              |
+| Quick mental check of "how unusual is this value?" | **Z-scores** — tells you immediately                  |
+
+**Python Example (General Normal — let Python do the work):**
+
+```python
+from scipy import stats
+
+# What % of students are shorter than 5'10" (70 inches)?
+# mean = 66 in, std = 2 in
+probability = stats.norm.cdf(70, loc=66, scale=2)
+print(f"{probability:.4f}")  # Output: 0.9772 → 97.72%
+```
+
+**Python Example (Standard Normal — manual Z conversion):**
+
+```python
+from scipy import stats
+
+# Step 1: Calculate Z-score
+z = (70 - 66) / 2  # z = 2.0
+
+# Step 2: Find probability
+probability = stats.norm.cdf(z)
+print(f"{probability:.4f}")  # Output: 0.9772 → same answer!
+```
+
+> **Bottom line:** In practice, let Python do the work. In your mind, always think in Z-scores.
+
+---
+
+### 7. QQ-Plot: The Detective's Tool for Normality
+
+Many statistical methods assume data is normal. The **QQ-Plot** (Quantile-Quantile Plot) helps you **verify** if that assumption is true.
+
+**How It Works:**
+
+1. Sort your actual data from smallest to largest
+2. Generate what the data SHOULD look like if it were perfectly normal
+3. Plot actual vs. expected — if they match, dots form a **straight line**
+
+**Reading a QQ-Plot:**
+
+| What You See                          | What It Means                                    |
+| ------------------------------------- | ------------------------------------------------ |
+| Points follow the **straight line**   | Data is **normally distributed** ✅              |
+| Points curve **upward** at the ends   | Data has **heavier tails** (more extreme values) |
+| Points curve **downward** at the ends | Data has **lighter tails** (fewer extremes)      |
+| **S-shaped** curve                    | Data is **skewed** (leaning left or right)       |
+
+**Python Code:**
+
+```python
+import scipy.stats as stats
+import matplotlib.pyplot as plt
+
+# Generate QQ-plot for your data
+stats.probplot(your_data, plot=plt)
+plt.title("QQ-Plot: Checking Normality")
+plt.show()
+```
+
+> **Rule of Thumb:** Dots on the line → proceed with normal-based methods. Dots flying off → transform your data first!
+
+---
+
+### 8. Why Does Normal Distribution Appear Everywhere?
+
+> **_Whenever a result is produced by MANY small, independent, random factors adding up together — the result tends to follow a normal distribution._**
+
+**Examples:**
+
+- **Bakery**: 1,000 loaves → tiny variations in flour, oven temp, dough → bell curve of weights
+- **Exam scores**: study time, mood, sleep, question difficulty → bell curve
+- **Heights, blood pressure, IQ scores, measurement errors** → all bell curves
+
+This phenomenon is explained by the **Central Limit Theorem (CLT)** — one of the most important theorems in all of statistics.
+
+> Normal distribution isn't just a shape on paper — it's a pattern that **nature itself follows** when many random things combine.
+
+---
+
+### Quick Reference Summary
+
+| #   | Concept                        | One-Line Summary                                                |
+| --- | ------------------------------ | --------------------------------------------------------------- |
+| 1   | **Shape**                      | Bell curve — symmetric, peaks in the middle                     |
+| 2   | **Mean & Std Dev**             | μ = where the bell sits, σ = how wide it is                     |
+| 3   | **68-95-99.7 Rule**            | 1σ → 68%, 2σ → 95%, 3σ → 99.7% of data                          |
+| 4   | **Z-Score**                    | "How many steps from the middle?" — Z = (X - μ) / σ             |
+| 5   | **General vs Standard Normal** | Same data, different scale — Standard has μ=0, σ=1              |
+| 6   | **Which to Use**               | Python for practice, Z-scores for thinking & exams              |
+| 7   | **QQ-Plot**                    | Dots on the line = normal ✅, dots off the line = not normal ❌ |
+| 8   | **Why Everywhere**             | Many small random factors combining → bell curve (CLT)          |
+
+---
+
+_Notes updated: February 14, 2026_
+_Topic: Normal Distribution — Complete Guide_
+_Week 8 - Data Science Journey_
